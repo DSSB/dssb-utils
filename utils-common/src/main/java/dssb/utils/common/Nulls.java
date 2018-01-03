@@ -29,7 +29,7 @@ import lombok.experimental.UtilityClass;
  */
 @UtilityClass
 public class Nulls {
-
+    
     /**
      * Returns {@code true} if theGivenObject is null. 
      * 
@@ -39,7 +39,7 @@ public class Nulls {
     public boolean isNull(Object theGivenObject) {
         return (theGivenObject == null);
     }
-
+    
     /**
      * Returns {@code true} if theGivenObject is not null. 
      * 
@@ -84,7 +84,7 @@ public class Nulls {
     public <T> Optional<T> whenNotNull(T theGivenObject) {
         return Optional.ofNullable(theGivenObject);
     }
-
+    
     /**
      * Extension method to create optional of theGivenObject. 
      * 
