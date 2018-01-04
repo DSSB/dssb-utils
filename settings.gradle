@@ -1,4 +1,4 @@
 
-include ":utils-common"
+include ":dssb-utils-common"
 
-rootProject.name = theName
+rootProject.name = theGroup
