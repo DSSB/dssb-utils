@@ -16,6 +16,7 @@
 package dssb.utils.common;
 
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -132,6 +133,8 @@ public class Nulls {
     /**
      * Map the given object using the transformation if the given object is not null or else return null.
      * 
+     * This method is the alias of mapBy and mapFrom.
+     * 
      * @param theGivenObject  the given object.
      * @param transformation  the transformation function.
      * @return  the transformed value.
@@ -139,6 +142,36 @@ public class Nulls {
      * @param  <T>  the data type of the target object.
      */
     public <F, T> T mapTo(F theGivenObject, Function<F, T> transformation) {
+        return (theGivenObject != null) ? transformation.apply(theGivenObject) : null;
+    }
+    
+    /**
+     * Map the given object using the transformation if the given object is not null or else return null.
+     * 
+     * This method is the alias of mapTo and mapFrom.
+     * 
+     * @param theGivenObject  the given object.
+     * @param transformation  the transformation function.
+     * @return  the transformed value.
+     * @param  <F>  the data type of the given object.
+     * @param  <T>  the data type of the target object.
+     */
+    public <F, T> T mapBy(F theGivenObject, Function<F, T> transformation) {
+        return (theGivenObject != null) ? transformation.apply(theGivenObject) : null;
+    }
+    
+    /**
+     * Map the given object using the transformation if the given object is not null or else return null.
+     * 
+     * This method is the alias of mapTo and mapBy.
+     * 
+     * @param theGivenObject  the given object.
+     * @param transformation  the transformation function.
+     * @return  the transformed value.
+     * @param  <F>  the data type of the given object.
+     * @param  <T>  the data type of the target object.
+     */
+    public <F, T> T mapFrom(F theGivenObject, Function<F, T> transformation) {
         return (theGivenObject != null) ? transformation.apply(theGivenObject) : null;
     }
     
@@ -177,4 +210,15 @@ public class Nulls {
         return (theGivenDouble == null) ? elseValue : theGivenDouble.doubleValue();
     }
     
+    /**
+     * Use the given object in the action.
+     * 
+     * @param theGivenObject  the given object.
+     * @param action          action to perform.
+     */
+    public static <V> void useAs(V theGivenObject, Consumer<V> action) {
+        if (theGivenObject != null) {
+            action.accept(theGivenObject);
+        }
+    }
 }
