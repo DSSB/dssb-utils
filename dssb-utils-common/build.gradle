@@ -1,4 +1,4 @@
-version='1.0.2'
+version='1.0.3'
 
 dependencies {
     compile 'org.projectlombok:lombok:1.16.16'
