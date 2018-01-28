@@ -1,5 +1,5 @@
 //  ========================================================================
-//  Copyright (c) 2017 Nawapunth Manusitthipol.
+//  Copyright (c) 2017 Direct Solution Software Builders (DSSB).
 //  ------------------------------------------------------------------------
 //  All rights reserved. This program and the accompanying materials
 //  are made available under the terms of the Eclipse Public License v1.0
@@ -15,15 +15,14 @@
 //  ========================================================================
 package dssb.utils.common;
 
-import lombok.experimental.UtilityClass;
+import lombok.val;
 
 /**
  * This utility class contains useful methods involving Strings.
  * 
- * @author NawaMan
+ * @author NawaMan -- nawaman@dssb.io
  */
-@UtilityClass
-public class Strings {
+public class UStrings {
     
     /**
      * Checks if theGivenString is empty (null or 0-length).
@@ -31,7 +30,7 @@ public class Strings {
      * @param  theGivenString  the given string.
      * @return {@code true} if theGivenString is empty.
      */
-    public boolean isNullOrEmpty(String theGivenString) {
+    public static boolean isNullOrEmpty(String theGivenString) {
         return (theGivenString == null) || theGivenString.isEmpty();
     }
     
@@ -41,8 +40,39 @@ public class Strings {
      * @param  theGivenString  the given string.
      * @return {@code true} if theGivenString is blank.
      */
-    public boolean isNullOrBlank(String theGivenString) {
+    public static boolean isNullOrBlank(String theGivenString) {
         return (theGivenString == null) || theGivenString.trim().isEmpty();
+    }
+    
+    /**
+     * Trim the given string and if the result is an empty string, return null.
+     * 
+     * @param theGivenString  the given string.
+     * @return  {@code null} if the given string is null or its trimmed value is empty.
+     */
+    public static String trimToNull(String theGivenString) {
+        if (theGivenString == null)
+            return null;
+        
+        val trimmedString = theGivenString.trim();
+        if (trimmedString.isEmpty())
+            return null;
+        
+        return trimmedString;
+    }
+    
+    /**
+     * Trim and return the given string. If the string is null, return empty string.
+     * 
+     * @param theGivenString  the given string.
+     * @return  {@code ""} if the given string is null or its trimmed value.
+     */
+    public static String trimToEmpty(String theGivenString) {
+        if (theGivenString == null)
+            return "";
+        
+        val trimmedString = theGivenString.trim();
+        return trimmedString;
     }
     
 }

@@ -1,5 +1,5 @@
 //  ========================================================================
-//  Copyright (c) 2017 Nawapunth Manusitthipol.
+//  Copyright (c) 2017 Direct Solution Software Builders (DSSB).
 //  ------------------------------------------------------------------------
 //  All rights reserved. This program and the accompanying materials
 //  are made available under the terms of the Eclipse Public License v1.0
@@ -23,15 +23,12 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-import lombok.experimental.UtilityClass;
-
 /**
  * This utility class contains useful methods involving null.
  * 
- * @author NawaMan
+ * @author NawaMan -- nawaman@dssb.io
  */
-@UtilityClass
-public class Nulls {
+public class UNulls {
     
     /**
      * Returns {@code true} if theGivenObject is null. 
@@ -39,7 +36,7 @@ public class Nulls {
      * @param  theGivenObject the given object.
      * @return {@code true} if theGivenObject is null.
      **/
-    public boolean isNull(Object theGivenObject) {
+    public static boolean isNull(Object theGivenObject) {
         return (theGivenObject == null);
     }
     
@@ -49,7 +46,7 @@ public class Nulls {
      * @param  theGivenObject  the given object.
      * @return {@code true} if theGivenObject is not null.
      **/
-    public boolean isNotNull(Object theGivenObject) {
+    public static boolean isNotNull(Object theGivenObject) {
         return (theGivenObject != null);
     }
     
@@ -61,7 +58,7 @@ public class Nulls {
      * @param  <OBJECT>        the data type of the given object.
      * @return theGivenObject if not null or elseValue if null.
      **/
-    public <OBJECT> OBJECT or(OBJECT theGivenObject, OBJECT elseValue) {
+    public static <OBJECT> OBJECT or(OBJECT theGivenObject, OBJECT elseValue) {
         return (theGivenObject == null) ? elseValue : theGivenObject;
     }
     
@@ -73,7 +70,7 @@ public class Nulls {
      * @param  <OBJECT>        the data type of the given object.
      * @return theGivenObject if not null or value from the elseSupplier if null.
      **/
-    public <OBJECT> OBJECT orGet(OBJECT theGivenObject, Supplier<? extends OBJECT> elseSupplier) {
+    public static <OBJECT> OBJECT orGet(OBJECT theGivenObject, Supplier<? extends OBJECT> elseSupplier) {
         return (theGivenObject == null) ? elseSupplier.get() : theGivenObject;
     }
     
@@ -84,7 +81,7 @@ public class Nulls {
      * @param  <OBJECT>        the data type of the given object.
      * @return the optional value of the theGivenObject.
      **/
-    public <OBJECT> Optional<OBJECT> toOptional(OBJECT theGivenObject) {
+    public static <OBJECT> Optional<OBJECT> toOptional(OBJECT theGivenObject) {
         return Optional.ofNullable(theGivenObject);
     }
     
@@ -95,7 +92,7 @@ public class Nulls {
      * @param  <OBJECT>        the data type of the given object.
      * @return the optional value of the theGivenObject.
      **/
-    public <OBJECT> Optional<OBJECT> whenNotNull(OBJECT theGivenObject) {
+    public static <OBJECT> Optional<OBJECT> whenNotNull(OBJECT theGivenObject) {
         return Optional.ofNullable(theGivenObject);
     }
     
@@ -106,7 +103,7 @@ public class Nulls {
      * @param  theAction       the action.
      * @param  <OBJECT>        the data type of the given object.
      **/
-    public <OBJECT> void whenNotNull(OBJECT theGivenObject, Consumer<OBJECT> theAction) {
+    public static <OBJECT> void whenNotNull(OBJECT theGivenObject, Consumer<OBJECT> theAction) {
         if (theGivenObject == null)
             return;
         theAction.accept(theGivenObject);
@@ -120,7 +117,7 @@ public class Nulls {
      * @param  <OBJECT>        the data type of the given object.
      * @return  the original object or null.
      */
-    public <OBJECT> OBJECT when(OBJECT theGivenObject, Predicate<OBJECT> theTest) {
+    public static <OBJECT> OBJECT when(OBJECT theGivenObject, Predicate<OBJECT> theTest) {
         if (theGivenObject == null)
             return null;
         if (theTest.test(theGivenObject))
@@ -137,7 +134,7 @@ public class Nulls {
      * @param  <CLASS>         the data type of the returned object.
      * @return  the original object as the type class or null.
      */
-    public <OBJECT, CLASS> CLASS as(OBJECT theGivenObject, Class<CLASS> theClass) {
+    public static <OBJECT, CLASS> CLASS as(OBJECT theGivenObject, Class<CLASS> theClass) {
         if (theClass.isInstance(theGivenObject))
             return theClass.cast(theGivenObject);
         return null;
@@ -154,7 +151,7 @@ public class Nulls {
      * @param  <TARGET>        the data type of the target object.
      * @return  the transformed value.
      */
-    public <OBJECT, TARGET> TARGET mapTo(OBJECT theGivenObject, Function<OBJECT, TARGET> transformation) {
+    public static <OBJECT, TARGET> TARGET mapTo(OBJECT theGivenObject, Function<OBJECT, TARGET> transformation) {
         return (theGivenObject != null) ? transformation.apply(theGivenObject) : null;
     }
     
@@ -169,7 +166,7 @@ public class Nulls {
      * @param  <TARGET>        the data type of the target object.
      * @return  the transformed value.
      */
-    public <OBJECT, TARGET> TARGET mapBy(OBJECT theGivenObject, Function<OBJECT, TARGET> transformation) {
+    public static <OBJECT, TARGET> TARGET mapBy(OBJECT theGivenObject, Function<OBJECT, TARGET> transformation) {
         return (theGivenObject != null) ? transformation.apply(theGivenObject) : null;
     }
     
@@ -184,7 +181,7 @@ public class Nulls {
      * @param  <TARGET>        the data type of the target object.
      * @return the transformed value.
      */
-    public <OBJECT, TARGET> TARGET mapFrom(OBJECT theGivenObject, Function<OBJECT, TARGET> transformation) {
+    public static <OBJECT, TARGET> TARGET mapFrom(OBJECT theGivenObject, Function<OBJECT, TARGET> transformation) {
         return (theGivenObject != null) ? transformation.apply(theGivenObject) : null;
     }
     
@@ -197,7 +194,7 @@ public class Nulls {
      * @param  elseValue        the return value for when the given object is null.
      * @return theGivenObject if not null or elseValue if null.
      **/
-    public int or(Integer theGivenInteger, int elseValue) {
+    public static int or(Integer theGivenInteger, int elseValue) {
         return (theGivenInteger == null) ? elseValue : theGivenInteger.intValue();
     }
     
@@ -208,7 +205,7 @@ public class Nulls {
      * @param  elseValue     the return value for when the given object is null.
      * @return theGivenObject if not null or elseValue if null.
      **/
-    public long or(Long theGivenLong, long elseValue) {
+    public static long or(Long theGivenLong, long elseValue) {
         return (theGivenLong == null) ? elseValue : theGivenLong.longValue();
     }
     
@@ -219,7 +216,7 @@ public class Nulls {
      * @param  elseValue     the return value for when the given object is null.
      * @return theGivenObject if not null or elseValue if null.
      **/
-    public long or(Long theGivenLong, int elseValue) {
+    public static long or(Long theGivenLong, int elseValue) {
         return (theGivenLong == null) ? elseValue : theGivenLong.longValue();
     }
     
@@ -230,7 +227,7 @@ public class Nulls {
      * @param  elseValue       the return value for when the given object is null.
      * @return theGivenObject if not null or elseValue if null.
      **/
-    public double or(Double theGivenDouble, double elseValue) {
+    public static double or(Double theGivenDouble, double elseValue) {
         return (theGivenDouble == null) ? elseValue : theGivenDouble.doubleValue();
     }
     
@@ -241,7 +238,7 @@ public class Nulls {
      * @param  elseValue       the return value for when the given object is null.
      * @return theGivenObject if not null or elseValue if null.
      **/
-    public double or(Double theGivenDouble, int elseValue) {
+    public static double or(Double theGivenDouble, int elseValue) {
         return (theGivenDouble == null) ? elseValue : theGivenDouble.doubleValue();
     }
     
@@ -252,7 +249,7 @@ public class Nulls {
      * @param  elseValue           the return value for when the given object is null.
      * @return theGivenObject if not null or elseValue if null.
      **/
-    public BigInteger or(BigInteger theGivenBigInteger, int elseValue) {
+    public static BigInteger or(BigInteger theGivenBigInteger, int elseValue) {
         return (theGivenBigInteger == null) ? BigInteger.valueOf(elseValue) : theGivenBigInteger;
     }
     
@@ -263,7 +260,7 @@ public class Nulls {
      * @param  elseValue           the return value for when the given object is null.
      * @return theGivenObject if not null or elseValue if null.
      **/
-    public BigInteger or(BigInteger theGivenBigInteger, long elseValue) {
+    public static BigInteger or(BigInteger theGivenBigInteger, long elseValue) {
         return (theGivenBigInteger == null) ? BigInteger.valueOf(elseValue) : theGivenBigInteger;
     }
     
@@ -274,7 +271,7 @@ public class Nulls {
      * @param  elseValue           the return value for when the given object is null.
      * @return theGivenObject if not null or elseValue if null.
      **/
-    public BigDecimal or(BigDecimal theGivenBigDecimal, int elseValue) {
+    public static BigDecimal or(BigDecimal theGivenBigDecimal, int elseValue) {
         return (theGivenBigDecimal == null) ? BigDecimal.valueOf(elseValue) : theGivenBigDecimal;
     }
     
@@ -285,7 +282,7 @@ public class Nulls {
      * @param  elseValue           the return value for when the given object is null.
      * @return theGivenObject if not null or elseValue if null.
      **/
-    public BigDecimal or(BigDecimal theGivenBigDecimal, long elseValue) {
+    public static BigDecimal or(BigDecimal theGivenBigDecimal, long elseValue) {
         return (theGivenBigDecimal == null) ? BigDecimal.valueOf(elseValue) : theGivenBigDecimal;
     }
     
@@ -296,7 +293,7 @@ public class Nulls {
      * @param  elseValue           the return value for when the given object is null.
      * @return theGivenObject if not null or elseValue if null.
      **/
-    public BigDecimal or(BigDecimal theGivenBigDecimal, double elseValue) {
+    public static BigDecimal or(BigDecimal theGivenBigDecimal, double elseValue) {
         return (theGivenBigDecimal == null) ? BigDecimal.valueOf(elseValue) : theGivenBigDecimal;
     }
     
