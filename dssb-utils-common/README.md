@@ -8,7 +8,7 @@ The use of Lomlok's extension methods particularly magnify the value of null-saf
 
 For example, you can write code like this...
 
-'''Java
+```Java
 @ExtensionMethod({ UNulls.class })
 public class Main {
 	/** This method parse number from the given string, return 0 if the string does not contains a value number. */
@@ -19,5 +19,5 @@ public class Main {
 		return str->(str == null) ? null : str.matches(regEx);
 	}
 }
-''''
+```
 
