@@ -1,4 +1,6 @@
 
 include ":dssb-utils-common"
+include ":dssb-utils-pipeable"
+include ":dssb-utils-pipeable-stream"
 
 rootProject.name = theGroup
