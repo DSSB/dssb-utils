@@ -4,7 +4,7 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.16.16'
     
     compile 'dssb-utils:dssb-utils-common:2.0.0'
-    compile 'dssb-utils:dssb-utils-pipeable:0.1.1'
+    compile 'dssb-utils:dssb-utils-pipeable:0.1.2'
     
     testCompile     'junit:junit:4.12'
     testCompileOnly 'org.projectlombok:lombok:1.16.16'
