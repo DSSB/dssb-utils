@@ -1,5 +1,13 @@
 version='0.1.1'
 
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven {
+        url 'https://raw.githubusercontent.com/dssb/maven-repository/master/'
+    }
+}
+
 dependencies {
     compileOnly 'org.projectlombok:lombok:1.16.16'
     
