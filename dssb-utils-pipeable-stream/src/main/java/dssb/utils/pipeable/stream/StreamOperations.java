@@ -12,8 +12,8 @@ import dssb.utils.pipeable.Operator;
 
 public class StreamOperations {
     
-    public static <T, R, C extends Collection<R>> Operator<Stream<T>, Stream<R>> map(Function<T, R> mapper) {
-        return new Operator<Stream<T>, Stream<R>>() {
+    public static <T, R, C extends Collection<R>> Operator<Stream<T>, Stream<R>, RuntimeException> map(Function<T, R> mapper) {
+        return new Operator<Stream<T>, Stream<R>, RuntimeException>() {
             @Override
             public Stream<R> apply(Stream<T> data) {
                 return data.map(mapper);
@@ -21,8 +21,8 @@ public class StreamOperations {
         };
     }
     
-    public static <T, R, C extends Collection<R>> Operator<Stream<T>, Stream<R>> faltMap(Function<T, C> mapper) {
-        return new Operator<Stream<T>, Stream<R>>() {
+    public static <T, R, C extends Collection<R>> Operator<Stream<T>, Stream<R>, RuntimeException> faltMap(Function<T, C> mapper) {
+        return new Operator<Stream<T>, Stream<R>, RuntimeException>() {
             @Override
             public Stream<R> apply(Stream<T> data) {
                 return data.map(mapper).flatMap(Collection::stream);
@@ -30,8 +30,8 @@ public class StreamOperations {
         };
     }
     
-    public static <T, R, C extends Collection<R>> Operator<List<T>, Stream<R>> spread(Function<T, C> mapper) {
-        return new Operator<List<T>, Stream<R>>() {
+    public static <T, R, C extends Collection<R>> Operator<List<T>, Stream<R>, RuntimeException> spread(Function<T, C> mapper) {
+        return new Operator<List<T>, Stream<R>, RuntimeException>() {
             @Override
             public Stream<R> apply(List<T> data) {
                 return data.stream().map(mapper).flatMap(Collection::stream);
@@ -39,8 +39,8 @@ public class StreamOperations {
         };
     }
     
-    public static<T, A, R> Operator<Stream<T>, R> collect(Collector<? super T, A, R> collector) {
-        return new Operator<Stream<T>, R>() {
+    public static<T, A, R> Operator<Stream<T>, R, RuntimeException> collect(Collector<? super T, A, R> collector) {
+        return new Operator<Stream<T>, R, RuntimeException>() {
             @Override
             public R apply(Stream<T> data) {
                 return data.collect(collector);
@@ -48,8 +48,8 @@ public class StreamOperations {
         };
     }
     
-    public static <T, C extends Collection<T>> Operator<Stream<T>, Stream<T>> where(Predicate<T> predicate) {
-        return new Operator<Stream<T>, Stream<T>>() {
+    public static <T, C extends Collection<T>> Operator<Stream<T>, Stream<T>, RuntimeException> where(Predicate<T> predicate) {
+        return new Operator<Stream<T>, Stream<T>, RuntimeException>() {
             @Override
             public Stream<T> apply(Stream<T> data) {
                 return data.filter(predicate);
@@ -57,8 +57,8 @@ public class StreamOperations {
         };
     }
     
-    public static <T, C extends Collection<T>> Operator<Stream<T>, Stream<T>> peek(Consumer<T> consumer) {
-        return new Operator<Stream<T>, Stream<T>>() {
+    public static <T, C extends Collection<T>> Operator<Stream<T>, Stream<T>, RuntimeException> peek(Consumer<T> consumer) {
+        return new Operator<Stream<T>, Stream<T>, RuntimeException>() {
             @Override
             public Stream<T> apply(Stream<T> data) {
                 return data.peek(consumer);
@@ -66,8 +66,8 @@ public class StreamOperations {
         };
     }
     
-    public static <T, C extends Collection<T>> Operator<Stream<T>, Boolean> containOneThat(Predicate<T> predicate) {
-        return new Operator<Stream<T>, Boolean>() {
+    public static <T, C extends Collection<T>> Operator<Stream<T>, Boolean, RuntimeException> containOneThat(Predicate<T> predicate) {
+        return new Operator<Stream<T>, Boolean, RuntimeException>() {
             @Override
             public Boolean apply(Stream<T> data) {
                 return data.anyMatch(predicate);
