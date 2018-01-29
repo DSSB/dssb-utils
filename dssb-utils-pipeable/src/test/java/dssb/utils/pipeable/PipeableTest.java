@@ -1,15 +1,14 @@
 package dssb.utils.pipeable;
 
-import static dssb.utils.pipeable.Operators.or;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
-import java.util.HashMap;
+import java.io.IOException;
 
-import org.junit.Assert;
 import org.junit.Test;
 
-import dssb.utils.common.UNulls;
+import dssb.failable.FailableException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.val;
@@ -28,6 +27,10 @@ public class PipeableTest {
     @AllArgsConstructor
     static class Person implements IPipe<Person> {
         private String name;
+        
+        public String burn() throws IOException {
+            throw new IOException();
+        }
     }
     
     @Test
@@ -53,8 +56,13 @@ public class PipeableTest {
     }
     
     @Test
-    public void testCatch() {
-//        Assert.fail();
+    public void testException() {
+        val person = new Person(null);
+        try {
+            person.pipe(Person::burn, String::length);
+        } catch (FailableException e) {
+            assertTrue(e.getCause() instanceof IOException);
+        }
     }
     
 }

@@ -3,6 +3,7 @@ version='0.1.0'
 dependencies {
     compileOnly 'org.projectlombok:lombok:1.16.16'
     
+    compile 'dssb-utils:dssb-failable-api:1.0.0'
     compile 'dssb-utils:dssb-utils-common:2.0.0'
     compile 'dssb-utils:dssb-utils-pipeable:0.1.2'
     

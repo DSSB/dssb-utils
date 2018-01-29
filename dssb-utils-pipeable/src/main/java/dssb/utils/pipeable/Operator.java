@@ -15,14 +15,14 @@
 //  ========================================================================
 package dssb.utils.pipeable;
 
-import java.util.function.Function;
 
+import dssb.failable.Failable;
 import lombok.val;
 
 @FunctionalInterface
-public interface Operator<TYPE, RESULT> extends Function<TYPE, RESULT> {
+public interface Operator<TYPE, RESULT, THROWABLE extends Throwable> extends Failable.Function<TYPE, RESULT, THROWABLE> {
     
-    public RESULT apply(TYPE data);
+    public RESULT apply(TYPE data) throws THROWABLE;
     
     public default RESULT operateToResult(Pipeable<TYPE> pipe) {
         val rawData = pipe._data();
@@ -30,7 +30,7 @@ public interface Operator<TYPE, RESULT> extends Function<TYPE, RESULT> {
           && (rawData == null))
             return null;
         
-        val rawResult = this.apply(rawData);
+        val rawResult = this.gracefully().apply(rawData);
         return rawResult;
     }
     
@@ -40,7 +40,7 @@ public interface Operator<TYPE, RESULT> extends Function<TYPE, RESULT> {
           && (rawData == null))
             return null;
         
-        val rawResult = this.apply(rawData);
+        val rawResult = this.gracefully().apply(rawData);
         return (rawResult instanceof Pipeable)
                 ? (Pipeable<RESULT>)rawResult
                 : ()->rawResult;
