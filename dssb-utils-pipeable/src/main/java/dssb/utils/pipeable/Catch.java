@@ -28,16 +28,16 @@ public class Catch<RESULT, THROWABLE extends Throwable> {
         return new Catch<RESULT, THROWABLE>(handler);
     }
     
-    public static <RESULT> CatchWithOr<RESULT> thenReturn(RESULT orValue) {
-        return new CatchWithOr<>(e->orValue);
+    public static <RESULT> CatchNoCheckException<RESULT> thenReturn(RESULT orValue) {
+        return new CatchNoCheckException<>(e->orValue);
     }
     
-    public static <RESULT> CatchWithOr<RESULT> thenReturn(Supplier<RESULT> orSupplier) {
-        return new CatchWithOr<>(e->((orSupplier != null) ? orSupplier.get() : null));
+    public static <RESULT> CatchNoCheckException<RESULT> thenReturn(Supplier<RESULT> orSupplier) {
+        return new CatchNoCheckException<>(e->((orSupplier != null) ? orSupplier.get() : null));
     }
     
-    public static <RESULT> CatchWithOr<RESULT> thenReturn(Function<FailableException, RESULT> orFunction) {
-        return new CatchWithOr<>(orFunction);
+    public static <RESULT> CatchNoCheckException<RESULT> thenReturn(Function<FailableException, RESULT> orFunction) {
+        return new CatchNoCheckException<>(orFunction);
     }
     
     public static <RESULT, THROWABLE extends Throwable> Catch<RESULT, THROWABLE> thenThrow() throws THROWABLE {
@@ -47,26 +47,26 @@ public class Catch<RESULT, THROWABLE extends Throwable> {
             throw cause;
         });
     }
-    public static <RESULT> CatchWithOr thenIgnore() {
-        return new CatchWithOr<RESULT>(null);
+    public static <RESULT> CatchNoCheckException thenIgnore() {
+        return new CatchNoCheckException<RESULT>(null);
     }
     
-    public static <RESULT, THROWABLE extends Throwable> CatchWithOr thenPrintStackTrace() {
-        return new CatchWithOr<RESULT>(e->{
+    public static <RESULT, THROWABLE extends Throwable> CatchNoCheckException thenPrintStackTrace() {
+        return new CatchNoCheckException<RESULT>(e->{
             e.printStackTrace();
             return null;
         });
     }
     
-    public static <RESULT, THROWABLE extends Throwable> CatchWithOr thenPrintStackTrace(PrintStream ps) {
-        return new CatchWithOr<RESULT>(e->{
+    public static <RESULT, THROWABLE extends Throwable> CatchNoCheckException thenPrintStackTrace(PrintStream ps) {
+        return new CatchNoCheckException<RESULT>(e->{
             e.printStackTrace(ps);
             return null;
         });
     }
     
-    public static <RESULT, THROWABLE extends Throwable> CatchWithOr thenPrintStackTrace(PrintWriter pw) {
-        return new CatchWithOr<RESULT>(e->{
+    public static <RESULT, THROWABLE extends Throwable> CatchNoCheckException thenPrintStackTrace(PrintWriter pw) {
+        return new CatchNoCheckException<RESULT>(e->{
             e.printStackTrace(pw);
             return null;
         });

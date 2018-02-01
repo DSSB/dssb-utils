@@ -31,6 +31,9 @@ public class PipeableTest {
         public String burn() throws IOException {
             throw new IOException();
         }
+        public String runtimeBurn() throws IOException {
+            throw new NullPointerException();
+        }
     }
     
     @Test
@@ -62,6 +65,16 @@ public class PipeableTest {
             person.pipe(Person::burn, String::length);
         } catch (FailableException e) {
             assertTrue(e.getCause() instanceof IOException);
+        }
+    }
+    
+    @Test
+    public void testException_runtime() {
+        val person = new Person(null);
+        try {
+            person.pipe(Person::runtimeBurn, String::length);
+        } catch (FailableException e) {
+            assertTrue(e.getCause() instanceof NullPointerException);
         }
     }
     
