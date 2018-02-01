@@ -71,16 +71,14 @@ public class PipeLineTest {
     
     @Test
     public void testCatchReturn() {
-        val burn = (Operator<Person, String, IOException>)Person::burn;
-        val pipeline = PipeLine.startingWith(burn).buildWith(Catch.thenReturn("<none>"));
+        val pipeline = PipeLine.startingWith(Person::burn).buildWith(Catch.thenReturn("<none>"));
         assertEquals("<none>", new Person(null).pipe(pipeline));
         assertEquals("<none>", pipeline.apply(new Person(null)));
     }
     
     @Test
     public void testCatchIgnore() {
-        val burn = (Operator<Person, String, IOException>)Person::burn;
-        val pipeline = PipeLine.startingWith(burn).buildWith(Catch.thenIgnore());
+        val pipeline = PipeLine.startingWith(Person::burn).buildWith(Catch.thenIgnore());
         assertNull(new Person(null).pipe(pipeline));
         assertNull(pipeline.apply(new Person(null)));
     }
@@ -90,8 +88,7 @@ public class PipeLineTest {
     @Test
     public void testCatchThrow_useAsOpeartor_throwFailableException() {
         try{
-            val burn = (Operator<Person, String, IOException>)Person::burn;
-            val pipeline = PipeLine.startingWith(burn).buildWith(Catch.thenThrow());
+            val pipeline = PipeLine.startingWith(Person::burn).buildWith(Catch.thenThrow());
             assertNull(new Person(null).pipe(pipeline));
         } catch (FailableException e) {
             assertTrue(e.getCause() instanceof IOException);
@@ -100,8 +97,7 @@ public class PipeLineTest {
     
     @Test(expected=IOException.class)
     public void testCatchThrow_useAsFunction_throwTheActualException() {
-        val burn = (Operator<Person, String, IOException>)Person::burn;
-        val pipeline = PipeLine.startingWith(burn).buildWith(Catch.thenThrow());
+        val pipeline = PipeLine.startingWith(Person::burn).buildWith(Catch.thenThrow());
         assertNull(pipeline.apply(new Person(null)));
     }
     
