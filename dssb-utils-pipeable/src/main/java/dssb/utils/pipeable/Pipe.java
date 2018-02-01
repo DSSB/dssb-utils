@@ -16,21 +16,27 @@
 package dssb.utils.pipeable;
 
 /**
- * Classes implementing this interface can pipe.
- * 
- * This interface extends Pipeable and return itself as the wrapped data.
- * This will allow any class to easily implements Pipeable by simply implement this interface.
- * Make sure that the TYPE is the class that implement this.
- * 
- * @param <TYPE> the type of data that this pipeable is holding.
+ * This utility class contains convenient functions for Pipeable.
  * 
  * @author NawaMan -- nawaman@dssb.io
  */
-public interface IPipe<TYPE extends Pipeable<TYPE>> extends Pipeable<TYPE> {
+public interface Pipe {
     
+    /**
+     * This method create a pipeable object for the given data.
+     * 
+     * This method is designed to read with use without static import.
+     * Like this: Pipe.of(data).
+     * 
+     * @param data  the data to be pipe.
+     * @return  the pipeable of the data.
+     */
     @SuppressWarnings("unchecked")
-    public default TYPE _data() {
-        return (TYPE)this;
+    public static <TYPE> Pipeable<TYPE> of(TYPE data) {
+        if (data instanceof Pipeable)
+            return (Pipeable<TYPE>)data;
+        
+        return (Pipeable<TYPE>)()->data;
     }
     
 }
