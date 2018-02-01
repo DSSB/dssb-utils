@@ -19,11 +19,42 @@ package dssb.utils.pipeable;
 import dssb.failable.Failable;
 import lombok.val;
 
+/**
+ * Classes implementing this interface can operate on the wrapped data of a compatible pipeable.
+ * 
+ * If the implemented classes also implements {@code NullSafeOperator},
+ *   it will be consider null-safe operator.
+ * When the input data is null,
+ *   an operator that is not null-safe will be skipped -- null is returned.
+ * 
+ * @param <TYPE>      the type of data that this pipeable is holding.
+ * @param <RESULT>    the type of the operation result.
+ * @param <THROWABLE> an exception thrown if there is a problem.
+ * 
+ * @author NawaMan -- nawaman@dssb.io
+ */
 @FunctionalInterface
 public interface Operator<TYPE, RESULT, THROWABLE extends Throwable> extends Failable.Function<TYPE, RESULT, THROWABLE> {
     
+    /**
+     * Perform the operation on the given data.
+     * 
+     * @param data  the given data to be operated on.
+     * @return      the result of the operation.
+     * @throws THROWABLE  the problem that might happen.
+     **/
     public RESULT apply(TYPE data) throws THROWABLE;
     
+    /**
+     * This method will be executed if this operation is the last in the pipe;
+     *   thus, creating the final result.
+     * 
+     * This method has a default implementation that correctly handle null value.
+     * So if this method is to be overwritten, the new implementation should handle that too.
+     * 
+     * @param pipe  the pipe to operate on.
+     * @return  the result of the operation.
+     */
     public default RESULT operateToResult(Pipeable<TYPE> pipe) {
         val rawData = pipe._data();
         if (!(this instanceof NullSafeOperator)
@@ -34,6 +65,17 @@ public interface Operator<TYPE, RESULT, THROWABLE extends Throwable> extends Fai
         return rawResult;
     }
     
+    /**
+     * This method will be executed if this operation is not the last in the pipe;
+     *   thus, creating another pipe value to be passed on to the next operator.
+     * 
+     * This method has a default implementation that correctly handle null value.
+     * So if this method is to be overwritten, the new implementation should handle that too.
+     * 
+     * @param pipe  the pipe to operate on.
+     * @return  the result of the operation.
+     */
+    @SuppressWarnings("unchecked")
     public default Pipeable<RESULT> operateToPipe(Pipeable<TYPE> pipe) {
         val rawData = pipe._data();
         if (!(this instanceof NullSafeOperator)
