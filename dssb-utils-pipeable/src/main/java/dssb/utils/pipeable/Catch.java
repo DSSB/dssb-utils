@@ -1,7 +1,25 @@
+//  ========================================================================
+//  Copyright (c) 2017 Direct Solution Software Builders (DSSB).
+//  ------------------------------------------------------------------------
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
 package dssb.utils.pipeable;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -9,14 +27,34 @@ import dssb.failable.Failable;
 import dssb.failable.FailableException;
 import lombok.val;
 
+/**
+ * Catch handles exception thrown as a pipe is processing.
+ * 
+ * @param <RESULT>    the type of the operation result.
+ * @param <THROWABLE> an exception thrown if there is a problem.
+ * 
+ * @author NawaMan -- nawaman@dssb.io
+ */
 public class Catch<RESULT, THROWABLE extends Throwable> {
     
     private Failable.Function<FailableException, RESULT, THROWABLE> handler;
     
+    /**
+     * Constructor a Catch with the handler.
+     * 
+     * @param handler  the handler.
+     */
     public Catch(Failable.Function<FailableException, RESULT, THROWABLE> handler) {
         this.handler = handler;
     }
     
+    /**
+     * Handle the exception (a FailableException).
+     * 
+     * @param exception  the failable exception to be handled.
+     * @return  the result to be retured.
+     * @throws  THROWABLE  the exception that might be thrown.
+     */
     public RESULT handle(FailableException exception) throws THROWABLE {
         if (this.handler == null)
             return null;
@@ -24,50 +62,154 @@ public class Catch<RESULT, THROWABLE extends Throwable> {
         return this.handler.apply(exception);
     }
     
-    public static <RESULT, THROWABLE extends Throwable> Catch then(Failable.Function<FailableException, RESULT, THROWABLE> handler) {
+    //== Factory methods ==
+    
+    /**
+     * Create the catch for the given handled. This is the same thing as the constructor.
+     * 
+     * @param handler  the given handler.
+     * @return  the newly create Catch.
+     */
+    public static <RESULT, THROWABLE extends Throwable> Catch<RESULT, THROWABLE> then(Failable.Function<FailableException, RESULT, THROWABLE> handler) {
         return new Catch<RESULT, THROWABLE>(handler);
     }
     
+    /**
+     * Handle the problem by returning the given value.
+     * 
+     * @param orValue  the value to be returned.
+     * @return  the Catch that does not throw a checked exception.
+     */
     public static <RESULT> CatchNoCheckException<RESULT> thenReturn(RESULT orValue) {
         return new CatchNoCheckException<>(e->orValue);
     }
     
-    public static <RESULT> CatchNoCheckException<RESULT> thenReturn(Supplier<RESULT> orSupplier) {
+    /**
+     * Handle the problem by returning the value from the supplier.
+     * 
+     * @param orSupplier  the supplier for the value to be returned.
+     * @return  the Catch that does not throw a checked exception.
+     */
+    public static <RESULT> CatchNoCheckException<RESULT> thenGet(Supplier<RESULT> orSupplier) {
         return new CatchNoCheckException<>(e->((orSupplier != null) ? orSupplier.get() : null));
     }
     
-    public static <RESULT> CatchNoCheckException<RESULT> thenReturn(Function<FailableException, RESULT> orFunction) {
+    /**
+     * Handle the problem by returning the value from the function.
+     * 
+     * @param orFunction  the function for the value to be returned given the failable exception.
+     * @return  the Catch that does not throw a checked exception.
+     */
+    public static <RESULT> CatchNoCheckException<RESULT> thenApply(Function<FailableException, RESULT> orFunction) {
         return new CatchNoCheckException<>(orFunction);
     }
     
-    public static <RESULT, THROWABLE extends Throwable> Catch<RESULT, THROWABLE> thenThrow() throws THROWABLE {
+    /**
+     * Handle the exception by throwing the cause of the exception.
+     * 
+     * @return  the catch.
+     */
+    public static <RESULT, THROWABLE extends Throwable> Catch<RESULT, THROWABLE> thenThrow() {
         return new Catch<RESULT, THROWABLE>(exception -> {
             @SuppressWarnings("unchecked")
             val cause = (THROWABLE)exception.getCause();
             throw cause;
         });
     }
-    public static <RESULT> CatchNoCheckException thenIgnore() {
+    
+    /**
+     * Handle the exception by throwing the cause of the exception.
+     * 
+     * @return  the catch.
+     */
+    public static <RESULT, THROWABLE extends FailableException> Catch<RESULT, THROWABLE> thenThrowFailableException() {
+        return new Catch<RESULT, THROWABLE>(exception -> {
+            throw exception;
+        });
+    }
+    
+    /**
+     * Handle the exception by ignoring it.
+     * 
+     * @return  the catch that ignore the exception.
+     */
+    public static <RESULT> CatchNoCheckException<RESULT> thenIgnore() {
         return new CatchNoCheckException<RESULT>(null);
     }
     
-    public static <RESULT, THROWABLE extends Throwable> CatchNoCheckException thenPrintStackTrace() {
+    /**
+     * Handle the exception by printing the stacktrace. This method use Exception.printStackTrace().
+     * 
+     * @return the Catch.
+     */
+    public static <RESULT, THROWABLE extends Throwable> CatchNoCheckException<RESULT> thenPrintStackTrace() {
         return new CatchNoCheckException<RESULT>(e->{
             e.printStackTrace();
             return null;
         });
     }
     
-    public static <RESULT, THROWABLE extends Throwable> CatchNoCheckException thenPrintStackTrace(PrintStream ps) {
+    /**
+     * Handle the exception by printing the stacktrace to the given print stream. This method use Exception.printStackTrace(PrintStream).
+     * 
+     * @param ps the print stream to be printed to.
+     * 
+     * @return the Catch.
+     */
+    public static <RESULT, THROWABLE extends Throwable> CatchNoCheckException<RESULT> thenPrintStackTrace(PrintStream ps) {
         return new CatchNoCheckException<RESULT>(e->{
             e.printStackTrace(ps);
             return null;
         });
     }
     
-    public static <RESULT, THROWABLE extends Throwable> CatchNoCheckException thenPrintStackTrace(PrintWriter pw) {
+    /**
+     * Handle the exception by printing the stacktrace to the given print stream. This method use Exception.printStackTrace(PrintWriter).
+     * 
+     * @param pw the print writer to be printed to.
+     * 
+     * @return the Catch.
+     */
+    public static <RESULT, THROWABLE extends Throwable> CatchNoCheckException<RESULT> thenPrintStackTrace(PrintWriter pw) {
         return new CatchNoCheckException<RESULT>(e->{
             e.printStackTrace(pw);
+            return null;
+        });
+    }
+    
+    /**
+     * Handle the exception by printing the stacktrace to the given print stream. This method use Exception.printStackTrace(PrintWriter).
+     * 
+     * @param stackTraceElementsHolder  the holder of the stacktrack.
+     * @return the Catch.
+     */
+    public static <RESULT, THROWABLE extends Throwable> CatchNoCheckException<RESULT> thenSetStackTrace(AtomicReference<StackTraceElement[]> stackTraceElementsHolder) {
+        return new CatchNoCheckException<RESULT>(e->{
+            if (stackTraceElementsHolder != null)
+                stackTraceElementsHolder.set(e.getStackTrace());
+            
+            return null;
+        });
+    }
+    
+    /**
+     * Handle the exception by printing the stacktrace to the given print stream. This method use Exception.printStackTrace(PrintWriter).
+     * 
+     * @param stackTraceHolder  the holder of the stacktrack as a printout by printStackTrace().
+     * @return the Catch.
+     */
+    public static <RESULT, THROWABLE extends Throwable> CatchNoCheckException<RESULT> thenSetStackTraceString(AtomicReference<String> stackTraceHolder) {
+        return new CatchNoCheckException<RESULT>(e->{
+            if (stackTraceHolder != null) {
+                try (val baos = new ByteArrayOutputStream();
+                     val ps   = new PrintStream(baos)) {
+                    e.printStackTrace(ps);
+                    stackTraceHolder.set(baos.toString());
+                } catch (IOException e1) {
+                    // BAOS will not throw an exception.
+                }
+            }
+            
             return null;
         });
     }

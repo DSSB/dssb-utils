@@ -1,14 +1,39 @@
+//  ========================================================================
+//  Copyright (c) 2017 Direct Solution Software Builders (DSSB).
+//  ------------------------------------------------------------------------
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
 package dssb.utils.pipeable;
 
-import dssb.failable.Failable;
-import dssb.failable.Failable.Function;
 import dssb.failable.FailableException;
 
+/**
+ * Catch handles exception thrown as a pipe is processing but will never throw a checked exceotion..
+ * 
+ * @param <RESULT>    the type of the operation result.
+ * 
+ * @author NawaMan -- nawaman@dssb.io
+ */
 @SuppressWarnings("rawtypes")
 public class CatchNoCheckException<RESULT> extends Catch<RESULT, RuntimeException> {
     
     private java.util.function.Function orFunction;
     
+    /**
+     * Constructs a CatchNoCheckException.
+     * 
+     * @param orFunction  the handler function.
+     */
     public <R extends RESULT, THROWABLE extends Throwable> CatchNoCheckException(java.util.function.Function<FailableException, R> orFunction) {
         super(null);
         this.orFunction = orFunction;
