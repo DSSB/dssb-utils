@@ -1,3 +1,18 @@
+//  ========================================================================
+//  Copyright (c) 2017 Direct Solution Software Builders (DSSB).
+//  ------------------------------------------------------------------------
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
 package dssb.utils.pipeable.stream;
 
 import static dssb.utils.pipeable.Operators.to;
@@ -14,11 +29,13 @@ import java.util.stream.Collectors;
 import org.junit.Test;
 
 import dssb.utils.pipeable.IPipe;
+import dssb.utils.pipeable.PipeLine;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.val;
 import lombok.experimental.Accessors;
 
+@SuppressWarnings("javadoc")
 public class StreamPipeableTest {
     
     @Data
@@ -65,6 +82,16 @@ public class StreamPipeableTest {
                 to     (Object    ::toString)
         );
         assertEquals("[Alice, Bob, Chalie, Donald, Edward, Frank]", r);
+        
+        val pipeline = PipeLine
+                .startingWith(to     (Company   ::getDepartments))
+                        .next(spread(Department::getMembers))
+                        .next(map    (Person    ::getName))
+                        .next(collect(Collectors.toList()))
+                        .next(to     (Object    ::toString))
+                .build();
+        val r2 = pipeline.apply(company);
+        assertEquals("[Alice, Bob, Chalie, Donald, Edward, Frank]", r2);
     }
     
 }
