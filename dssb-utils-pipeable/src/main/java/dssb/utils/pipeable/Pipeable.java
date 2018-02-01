@@ -74,7 +74,7 @@ public interface Pipeable<TYPE> {
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     RESULT, THROWABLE   extends Throwable,
                     FINAL_THROWABLE extends Throwable>
-            RESULT pipe(Operator<TYPE,   RESULT,  THROWABLE>  operator1,
+            RESULT pipe(Operator<TYPE, RESULT, THROWABLE>  operator1,
                         Catch<RESULT, FINAL_THROWABLE> catcher) throws FINAL_THROWABLE {
         try {
             val result = operator1.operateToResult(this);
