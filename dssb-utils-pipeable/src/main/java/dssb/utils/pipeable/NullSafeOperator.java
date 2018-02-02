@@ -15,6 +15,8 @@
 //  ========================================================================
 package dssb.utils.pipeable;
 
+import dssb.failable.Failable.Function;
+
 /**
  * Operators implementing this interface will be given the data even if it was null.
  * 
@@ -26,5 +28,21 @@ package dssb.utils.pipeable;
  */
 @FunctionalInterface
 public interface NullSafeOperator<TYPE, RESULT, THROWABLE extends Throwable> extends Operator<TYPE, RESULT, THROWABLE> {
+    
+    /**
+     * Convert a failable function to an operator.
+     * 
+     * NOTE: javac is a jerk. :'-(
+     *   This function was not need when done in Eclipse but javac just cry baby.
+     * 
+     * @param function  the input function.
+     * @return  the operator.
+     **/
+    @SuppressWarnings("unchecked")
+    public static <TYPE, RESULT, THOWABLE extends Throwable> NullSafeOperator<TYPE, RESULT, THOWABLE> of(Function<TYPE, RESULT, THOWABLE> function) {
+        return (NullSafeOperator<TYPE, RESULT, THOWABLE>)(t-> { 
+            return function.apply(t);
+        });
+    }
     
 }

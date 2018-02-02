@@ -61,11 +61,10 @@ public class Operators {
      * @param defaultValue  the default value to be returned.
      * @return  the OR operator.
      */
-    @SuppressWarnings("unchecked")
     public static <T, THROWABLE extends Throwable> NullSafeOperator<T, T, THROWABLE> or(T defaultValue) {
-        return t->{ 
+        return NullSafeOperator.of(t->{ 
             return UNulls.or(t, defaultValue);
-        };
+        });
     }
     
     /**
@@ -74,11 +73,10 @@ public class Operators {
      * @param defaultSupplier  the default value to be returned.
      * @return  the OR operator.
      */
-    @SuppressWarnings("unchecked")
     public static <T, THROWABLE extends Throwable> NullSafeOperator<T, T, THROWABLE> orGet(Supplier<T> defaultSupplier) {
-        return t->{
+        return NullSafeOperator.of(t->{
             return UNulls.orGet(t, defaultSupplier);
-        };
+        });
     }
     
     /**
@@ -87,11 +85,10 @@ public class Operators {
      * @param defaultValue  the default value to be returned.
      * @return  the OR operator.
      */
-    @SuppressWarnings("unchecked")
     public static <T, THROWABLE extends Throwable> NullSafeOperator<T, T, THROWABLE> otherwise(T defaultValue) {
-        return t->{
+        return NullSafeOperator.of(t->{
             return UNulls.or(t, defaultValue);
-        };
+        });
     }
     
     /**
@@ -100,11 +97,10 @@ public class Operators {
      * @param defaultSupplier  the default value to be returned.
      * @return  the OR operator.
      */
-    @SuppressWarnings("unchecked")
     public static <T, THROWABLE extends Throwable> NullSafeOperator<T, T, THROWABLE> otherwiseGet(Supplier<T> defaultSupplier) {
-        return t->{
+        return NullSafeOperator.of(t->{
             return UNulls.orGet(t, defaultSupplier);
-        };
+        });
     }
     
 }
