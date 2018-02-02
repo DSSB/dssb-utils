@@ -15,7 +15,7 @@
 //  ========================================================================
 package dssb.utils.pipeable;
 
-import static dssb.utils.pipeable.Operators.or;
+import static dssb.utils.pipeable.operators.Operators.or;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;

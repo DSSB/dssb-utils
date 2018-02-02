@@ -13,16 +13,17 @@
 //
 //  You may elect to redistribute this code under either of these licenses.
 //  ========================================================================
-package dssb.utils.pipeable;
+package dssb.utils.pipeable.operators;
 
-import static dssb.utils.pipeable.Operators.or;
-import static dssb.utils.pipeable.Operators.to;
+import static dssb.utils.pipeable.operators.Operators.otherwise;
+import static dssb.utils.pipeable.operators.Operators.to;
 import static org.junit.Assert.assertEquals;
 
 import java.util.HashMap;
 
 import org.junit.Test;
 
+import dssb.utils.pipeable.Pipeable;
 import lombok.val;
 
 @SuppressWarnings("javadoc")
@@ -38,7 +39,7 @@ public class OperatorsTest {
     public void testOr() {
         val map = new HashMap<String,String>();
         val str = (Pipeable<String>)()->"Hello";
-        assertEquals("Hi", str.pipe(map::get, or("Hi")));
+        assertEquals("Hi", str.pipe(map::get, otherwise("Hi")));
     }
     
 }

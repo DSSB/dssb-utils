@@ -13,12 +13,15 @@
 //
 //  You may elect to redistribute this code under either of these licenses.
 //  ========================================================================
-package dssb.utils.pipeable.stream;
+package dssb.utils.pipeable.operators;
 
-import static dssb.utils.pipeable.Operators.to;
-import static dssb.utils.pipeable.stream.StreamOperations.collect;
-import static dssb.utils.pipeable.stream.StreamOperations.spread;
-import static dssb.utils.pipeable.stream.StreamOperations.map;
+import static dssb.utils.pipeable.operators.Operators.to;
+import static dssb.utils.pipeable.operators.Operators.toStr;
+import static dssb.utils.pipeable.operators.StreamOperations.collect;
+import static dssb.utils.pipeable.operators.StreamOperations.map;
+import static dssb.utils.pipeable.operators.StreamOperations.reduce;
+import static dssb.utils.pipeable.operators.StreamOperations.spread;
+import static dssb.utils.pipeable.operators.StreamOperations.collectToList;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 
@@ -29,6 +32,7 @@ import java.util.stream.Collectors;
 import org.junit.Test;
 
 import dssb.utils.pipeable.IPipe;
+import dssb.utils.pipeable.Pipe;
 import dssb.utils.pipeable.PipeLine;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -92,6 +96,23 @@ public class StreamPipeableTest {
                 .build();
         val r2 = pipeline.apply(company);
         assertEquals("[Alice, Bob, Chalie, Donald, Edward, Frank]", r2);
+    }
+    
+    @Test
+    public void testStream() {
+        val lengths = Pipe.streamOf("Hello").pipe(
+                map(String::length),
+                collectToList(), 
+                toStr());
+        assertEquals("[5]", lengths);
+    }
+    
+    @Test
+    public void testStream_reduce() {
+        val lengths = Pipe.streamOf("Hello", "world").pipe(
+                reduce((a, b)-> a + ", " + b), 
+                Object::toString);
+        assertEquals("Hello, world", lengths);
     }
     
 }

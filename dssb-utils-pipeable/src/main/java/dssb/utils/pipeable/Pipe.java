@@ -15,6 +15,11 @@
 //  ========================================================================
 package dssb.utils.pipeable;
 
+import static java.util.Arrays.stream;
+
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
+
 /**
  * This utility class contains convenient functions for Pipeable.
  * 
@@ -37,6 +42,29 @@ public interface Pipe {
             return (Pipeable<TYPE>)data;
         
         return (Pipeable<TYPE>)()->data;
+    }
+    
+    /**
+     * Create a pipeable stream of the given iterable.
+     * 
+     * @param iterable  the iterable.
+     * @return  the map operator.
+     */
+    public static <T> Pipeable<Stream<T>> streamOf(Iterable<T> iterable) {
+        return Pipe.of((iterable == null) 
+                        ? Stream.empty()
+                        : StreamSupport.stream(iterable.spliterator(), false));
+    }
+    
+    /**
+     * Create a pipeable stream of the given array.
+     * 
+     * @param array  the array.
+     * @return  the map operator.
+     */
+    @SafeVarargs
+    public static <T> Pipeable<Stream<T>> streamOf(T ...  array) {
+        return Pipe.of(stream(array));
     }
     
 }
