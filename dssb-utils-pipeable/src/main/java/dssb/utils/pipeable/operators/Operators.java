@@ -15,9 +15,10 @@
 //  ========================================================================
 package dssb.utils.pipeable.operators;
 
-import java.util.function.Function;
+
 import java.util.function.Supplier;
 
+import dssb.failable.Failable.Function;
 import dssb.utils.common.UNulls;
 import dssb.utils.pipeable.NullSafeOperator;
 import dssb.utils.pipeable.Operator;
@@ -41,8 +42,8 @@ public class Operators {
      * @return  the operator for the given function.
      */
     public static <T, R, THROWABLE extends Throwable>
-                Operator<T, R, THROWABLE> to(Function<T, R> function) {
-        return t->function.apply(t);
+                Operator<T, R, THROWABLE> to(Function<T, R, THROWABLE> function) {
+        return Operator.of(function);
     }
     
     /**
@@ -51,7 +52,7 @@ public class Operators {
      * @return  the operator to convert oject to string.
      */
     public static <T> Operator<T, String, RuntimeException> toStr() {
-        return Object::toString;
+        return Operator.of(Object::toString);
     }
     
     /**
@@ -60,8 +61,11 @@ public class Operators {
      * @param defaultValue  the default value to be returned.
      * @return  the OR operator.
      */
+    @SuppressWarnings("unchecked")
     public static <T, THROWABLE extends Throwable> NullSafeOperator<T, T, THROWABLE> or(T defaultValue) {
-        return t->UNulls.or(t, defaultValue);
+        return t->{ 
+            return UNulls.or(t, defaultValue);
+        };
     }
     
     /**
@@ -70,8 +74,11 @@ public class Operators {
      * @param defaultSupplier  the default value to be returned.
      * @return  the OR operator.
      */
+    @SuppressWarnings("unchecked")
     public static <T, THROWABLE extends Throwable> NullSafeOperator<T, T, THROWABLE> orGet(Supplier<T> defaultSupplier) {
-        return t->UNulls.orGet(t, defaultSupplier);
+        return t->{
+            return UNulls.orGet(t, defaultSupplier);
+        };
     }
     
     /**
@@ -80,8 +87,11 @@ public class Operators {
      * @param defaultValue  the default value to be returned.
      * @return  the OR operator.
      */
+    @SuppressWarnings("unchecked")
     public static <T, THROWABLE extends Throwable> NullSafeOperator<T, T, THROWABLE> otherwise(T defaultValue) {
-        return t->UNulls.or(t, defaultValue);
+        return t->{
+            return UNulls.or(t, defaultValue);
+        };
     }
     
     /**
@@ -90,8 +100,11 @@ public class Operators {
      * @param defaultSupplier  the default value to be returned.
      * @return  the OR operator.
      */
+    @SuppressWarnings("unchecked")
     public static <T, THROWABLE extends Throwable> NullSafeOperator<T, T, THROWABLE> otherwiseGet(Supplier<T> defaultSupplier) {
-        return t->UNulls.orGet(t, defaultSupplier);
+        return t->{
+            return UNulls.orGet(t, defaultSupplier);
+        };
     }
     
 }

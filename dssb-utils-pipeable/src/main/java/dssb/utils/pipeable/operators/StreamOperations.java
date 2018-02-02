@@ -42,9 +42,7 @@ public class StreamOperations {
      * @return  the map operator.
      */
     public static <T> Operator<T, Stream<T>, RuntimeException> stream() {
-        return data -> { 
-            return Stream.of(data);
-        };
+        return Operator.of(Stream::of);
     }
     
     /**
@@ -54,9 +52,9 @@ public class StreamOperations {
      * @return  the map operator.
      */
     public static <T, R> Operator<Stream<T>, Stream<R>, RuntimeException> map(Function<T, R> mapper) {
-        return stream -> {
+        return Operator.of(stream -> {
             return stream.map(mapper);
-        };
+        });
     }
     
     /**
@@ -66,9 +64,9 @@ public class StreamOperations {
      * @return  the faltMap operator.
      */
     public static <T, R, C extends Collection<R>> Operator<Stream<T>, Stream<R>, RuntimeException> faltMap(Function<T, C> mapper) {
-        return stream -> { 
+        return Operator.of(stream -> { 
             return stream.map(mapper).flatMap(Collection::stream);
-        };
+        });
     }
     
     /**
@@ -78,9 +76,9 @@ public class StreamOperations {
      * @return  the spread operator.
      */
     public static <T, R, C extends Collection<R>> Operator<List<T>, Stream<R>, RuntimeException> spread(Function<T, C> mapper) {
-        return stream -> {
+        return Operator.of(stream -> {
             return stream.stream().map(mapper).flatMap(Collection::stream);
-        };
+        });
     }
     
     /**
@@ -90,9 +88,9 @@ public class StreamOperations {
      * @return  the collect operator.
      */
     public static <T> Operator<Stream<T>, Stream<T>, RuntimeException> filter(Predicate<T> predicate) {
-        return stream -> {
+        return Operator.of(stream -> {
             return stream.filter(predicate);
-        };
+        });
     }
     
     /**
@@ -102,9 +100,9 @@ public class StreamOperations {
      * @return  the peek operator.
      */
     public static <T> Operator<Stream<T>, Stream<T>, RuntimeException> peek(Consumer<T> consumer) {
-        return stream -> {
+        return Operator.of(stream -> {
             return stream.peek(consumer);
-        };
+        });
     }
     
     /**
@@ -114,9 +112,9 @@ public class StreamOperations {
      * @return  the anyMatch operator.
      */
     public static <T> Operator<Stream<T>, Boolean, RuntimeException> anyMatch(Predicate<T> predicate) {
-        return stream -> {
+        return Operator.of(stream -> {
             return stream.anyMatch(predicate);
-        };
+        });
     }
     
     /**
@@ -126,9 +124,9 @@ public class StreamOperations {
      * @return  the allMatch operator.
      */
     public static <T> Operator<Stream<T>, Boolean, RuntimeException> allMatch(Predicate<T> predicate) {
-        return stream -> {
+        return Operator.of(stream -> {
             return stream.allMatch(predicate);
-        };
+        });
     }
     
     /**
@@ -138,9 +136,9 @@ public class StreamOperations {
      * @return  the collect operator.
      */
     public static<T, A, R> Operator<Stream<T>, R, RuntimeException> collect(Collector<? super T, A, R> collector) {
-        return stream-> {
+        return Operator.of(stream-> {
             return stream.collect(collector);
-        };
+        });
     }
     
     /**
@@ -150,9 +148,9 @@ public class StreamOperations {
      * @return  the reduce operator.
      */
     public static <T> Operator<Stream<T>, T, RuntimeException> reduce(BinaryOperator<T> accumulator) {
-        return stream-> {
+        return Operator.of(stream-> {
             return stream.reduce(accumulator).orElse(null);
-        };
+        });
     }
     
     /**
@@ -161,9 +159,9 @@ public class StreamOperations {
      * @return  the reduce operator.
      */
     public static <T> Operator<Stream<T>, List<T>, RuntimeException> collectToList() {
-        return stream-> {
+        return Operator.of(stream-> {
             return stream.collect(Collectors.toList());
-        };
+        });
     }
     
 }

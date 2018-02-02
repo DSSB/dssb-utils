@@ -17,6 +17,7 @@ package dssb.utils.pipeable;
 
 
 import dssb.failable.Failable;
+import dssb.failable.Failable.Function;
 import lombok.val;
 
 /**
@@ -86,6 +87,22 @@ public interface Operator<TYPE, RESULT, THROWABLE extends Throwable> extends Fai
         return (rawResult instanceof Pipeable)
                 ? (Pipeable<RESULT>)rawResult
                 : ()->rawResult;
+    }
+    
+    /**
+     * Convert a failable function to an operator.
+     * 
+     * NOTE: javac is a jerk. :'-(
+     *   This function was not need when done in Eclipse but javac just cry baby.
+     * 
+     * @param function  the input function.
+     * @return  the operator.
+     **/
+    @SuppressWarnings("unchecked")
+    public static <TYPE, RESULT, THOWABLE extends Throwable> Operator<TYPE, RESULT, THOWABLE> of(Function<TYPE, RESULT, THOWABLE> function) {
+        return (Operator<TYPE, RESULT, THOWABLE>)(t-> { 
+            return function.apply(t);
+        });
     }
     
 }

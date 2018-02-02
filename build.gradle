@@ -69,6 +69,7 @@ subprojects {
     gradle.projectsEvaluated {
         tasks.withType(JavaCompile) {
             options.compilerArgs << "-parameters"
+            options.compilerArgs << "-Xlint:unchecked"
         }
     }
 }
