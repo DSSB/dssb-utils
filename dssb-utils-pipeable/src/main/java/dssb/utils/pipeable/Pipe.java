@@ -35,6 +35,8 @@ public interface Pipe {
      * 
      * @param data  the data to be pipe.
      * @return  the pipeable of the data.
+     * 
+     * @param <TYPE>  the type of the data.
      */
     @SuppressWarnings("unchecked")
     public static <TYPE> Pipeable<TYPE> of(TYPE data) {
@@ -49,8 +51,10 @@ public interface Pipe {
      * 
      * @param iterable  the iterable.
      * @return  the map operator.
+     * 
+     * @param <TYPE>  the type of the data.
      */
-    public static <T> Pipeable<Stream<T>> streamOf(Iterable<T> iterable) {
+    public static <TYPE> Pipeable<Stream<TYPE>> streamOf(Iterable<TYPE> iterable) {
         return Pipe.of((iterable == null) 
                         ? Stream.empty()
                         : StreamSupport.stream(iterable.spliterator(), false));
@@ -61,9 +65,11 @@ public interface Pipe {
      * 
      * @param array  the array.
      * @return  the map operator.
+     * 
+     * @param <TYPE>  the type of the data.
      */
     @SafeVarargs
-    public static <T> Pipeable<Stream<T>> streamOf(T ...  array) {
+    public static <TYPE> Pipeable<Stream<TYPE>> streamOf(TYPE ...  array) {
         return Pipe.of(stream(array));
     }
     

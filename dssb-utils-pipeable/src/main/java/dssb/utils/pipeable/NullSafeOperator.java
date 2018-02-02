@@ -37,6 +37,10 @@ public interface NullSafeOperator<TYPE, RESULT, THROWABLE extends Throwable> ext
      * 
      * @param function  the input function.
      * @return  the operator.
+     * 
+     * @param <TYPE>      the data type of the function.
+     * @param <RESULT>    the return type of the function.
+     * @param <THOWABLE>  the exception type of the function.
      **/
     @SuppressWarnings("unchecked")
     public static <TYPE, RESULT, THOWABLE extends Throwable> NullSafeOperator<TYPE, RESULT, THOWABLE> of(Function<TYPE, RESULT, THOWABLE> function) {

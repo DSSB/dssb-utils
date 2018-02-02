@@ -50,12 +50,7 @@ public interface Pipeable<TYPE> {
     
     //== Piping methods ==
     
-    /**
-     * Pipe with 1 operators.
-     * 
-     * @param operator1   the 1st operator.
-     * @return            the result.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     RESULT, THROWABLE   extends Throwable>
             RESULT pipe(Operator<TYPE, RESULT, THROWABLE> operator1) {
@@ -63,14 +58,7 @@ public interface Pipeable<TYPE> {
         return result;
     }
     
-    /**
-     * Pipe with 1 operators and a catcher that might throw a checked exception.
-     * 
-     * @param operator1   the 1st operator.
-     * @param catcher     the catcher.
-     * @return            the result.
-     * @throws FINAL_THROWABLE if the catcher throw an exception.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     RESULT, THROWABLE   extends Throwable,
                     FINAL_THROWABLE extends Throwable>
@@ -84,13 +72,7 @@ public interface Pipeable<TYPE> {
         }
     }
     
-    /** 
-     * Pipe with 1 operators and a catcher that does not throw a checked exception.
-     * 
-     * @param operator1   the 1st operator.
-     * @param catcher     the catcher.
-     * @return            the result.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     RESULT, THROWABLE   extends Throwable>
             RESULT pipe(Operator<TYPE,   RESULT,  THROWABLE>  operator1,
@@ -103,13 +85,7 @@ public interface Pipeable<TYPE> {
         }
     }
     
-    /**
-     * Pipe with 2 operators.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @return            the result.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     RESULT, THROWABLE   extends Throwable>
             RESULT pipe(Operator<TYPE,   TYPE1,  THROWABLE1>  operator1,
@@ -120,15 +96,7 @@ public interface Pipeable<TYPE> {
         return result;
     }
     
-    /**
-     * Pipe with 2 operators and a catcher that might throw a checked exception.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param catcher     the catcher.
-     * @return            the result.
-     * @throws FINAL_THROWABLE if the catcher throw an exception.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     RESULT, THROWABLE   extends Throwable,
                     FINAL_THROWABLE extends Throwable>
@@ -144,14 +112,7 @@ public interface Pipeable<TYPE> {
         }
     }
     
-    /**
-     * Pipe with 2 operators and a catcher that does not throw a checked exception.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param catcher     the catcher.
-     * @return            the result.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     RESULT, THROWABLE   extends Throwable>
             RESULT pipe(Operator<TYPE,   TYPE1,  THROWABLE1>  operator1,
@@ -166,14 +127,7 @@ public interface Pipeable<TYPE> {
         }
     }
     
-    /**
-     * Pipe with 3 operators.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param operator3   the 3rd operator.
-     * @return            the result.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     TYPE2,  THROWABLE2  extends Throwable,
                     RESULT, THROWABLE   extends Throwable>
@@ -186,16 +140,7 @@ public interface Pipeable<TYPE> {
         return result;
     }
     
-    /**
-     * Pipe with 3 operators and a catcher that might throw a checked exception.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param operator3   the 3rd operator.
-     * @param catcher     the catcher.
-     * @return            the result.
-     * @throws FINAL_THROWABLE if the catcher throw an exception.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     TYPE2,  THROWABLE2  extends Throwable,
                     RESULT, THROWABLE   extends Throwable,
@@ -214,15 +159,7 @@ public interface Pipeable<TYPE> {
         }
     }
     
-    /**
-     * Pipe with 3 operators and a catcher that does not throw a checked exception.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param operator3   the 3rd operator.
-     * @param catcher     the catcher.
-     * @return            the result.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     TYPE2,  THROWABLE2  extends Throwable,
                     RESULT, THROWABLE   extends Throwable>
@@ -240,15 +177,7 @@ public interface Pipeable<TYPE> {
         }
     }
     
-    /**
-     * Pipe with 4 operators.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param operator3   the 3rd operator.
-     * @param operator4   the 4th operator.
-     * @return            the result.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     TYPE2,  THROWABLE2  extends Throwable,
                     TYPE3,  THROWABLE3  extends Throwable,
@@ -264,17 +193,7 @@ public interface Pipeable<TYPE> {
         return result;
     }
     
-    /**
-     * Pipe with 4 operators and a catcher that might throw a checked exception.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param operator3   the 3rd operator.
-     * @param operator4   the 4th operator.
-     * @param catcher     the catcher.
-     * @return            the result.
-     * @throws FINAL_THROWABLE if the catcher throw an exception.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     TYPE2,  THROWABLE2  extends Throwable,
                     TYPE3,  THROWABLE3  extends Throwable,
@@ -296,16 +215,7 @@ public interface Pipeable<TYPE> {
         }
     }
     
-    /**
-     * Pipe with 4 operators and a catcher that does not throw a checked exception.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param operator3   the 3rd operator.
-     * @param operator4   the 4th operator.
-     * @param catcher     the catcher.
-     * @return            the result.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     TYPE2,  THROWABLE2  extends Throwable,
                     TYPE3,  THROWABLE3  extends Throwable,
@@ -326,16 +236,7 @@ public interface Pipeable<TYPE> {
         }
     }
     
-    /**
-     * Pipe with 5 operators.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param operator3   the 3rd operator.
-     * @param operator4   the 4th operator.
-     * @param operator5   the 5th operator.
-     * @return            the result.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     TYPE2,  THROWABLE2  extends Throwable,
                     TYPE3,  THROWABLE3  extends Throwable,
@@ -355,18 +256,7 @@ public interface Pipeable<TYPE> {
         return result;
     }
     
-    /**
-     * Pipe with 5 operators and a catcher that might throw a checked exception.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param operator3   the 3rd operator.
-     * @param operator4   the 4th operator.
-     * @param operator5   the 5th operator.
-     * @param catcher     the catcher.
-     * @return            the result.
-     * @throws FINAL_THROWABLE if the catcher throw an exception.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     TYPE2,  THROWABLE2  extends Throwable,
                     TYPE3,  THROWABLE3  extends Throwable,
@@ -391,17 +281,7 @@ public interface Pipeable<TYPE> {
         }
     }
     
-    /**
-     * Pipe with 5 operators and a catcher that does not throw a checked exception.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param operator3   the 3rd operator.
-     * @param operator4   the 4th operator.
-     * @param operator5   the 5th operator.
-     * @param catcher     the catcher.
-     * @return            the result.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     TYPE2,  THROWABLE2  extends Throwable,
                     TYPE3,  THROWABLE3  extends Throwable,
@@ -425,17 +305,7 @@ public interface Pipeable<TYPE> {
         }
     }
     
-    /**
-     * Pipe with 6 operators.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param operator3   the 3rd operator.
-     * @param operator4   the 4th operator.
-     * @param operator5   the 5th operator.
-     * @param operator6   the 6th operator.
-     * @return            the result.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     TYPE2,  THROWABLE2  extends Throwable,
                     TYPE3,  THROWABLE3  extends Throwable,
@@ -458,19 +328,7 @@ public interface Pipeable<TYPE> {
         return result;
     }
     
-    /**
-     * Pipe with 6 operators and a catcher that might throw a checked exception.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param operator3   the 3rd operator.
-     * @param operator4   the 4th operator.
-     * @param operator5   the 5th operator.
-     * @param operator6   the 6th operator.
-     * @param catcher     the catcher.
-     * @return            the result.
-     * @throws FINAL_THROWABLE if the catcher throw an exception.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     TYPE2,  THROWABLE2  extends Throwable,
                     TYPE3,  THROWABLE3  extends Throwable,
@@ -498,18 +356,7 @@ public interface Pipeable<TYPE> {
         }
     }
     
-    /**
-     * Pipe with 6 operators and a catcher that does not throw a checked exception.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param operator3   the 3rd operator.
-     * @param operator4   the 4th operator.
-     * @param operator5   the 5th operator.
-     * @param operator6   the 6th operator.
-     * @param catcher     the catcher.
-     * @return            the result.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     TYPE2,  THROWABLE2  extends Throwable,
                     TYPE3,  THROWABLE3  extends Throwable,
@@ -536,18 +383,7 @@ public interface Pipeable<TYPE> {
         }
     }
     
-    /**
-     * Pipe with 7 operators.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param operator3   the 3rd operator.
-     * @param operator4   the 4th operator.
-     * @param operator5   the 5th operator.
-     * @param operator6   the 6th operator.
-     * @param operator7   the 7th operator.
-     * @return            the result.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     TYPE2,  THROWABLE2  extends Throwable,
                     TYPE3,  THROWABLE3  extends Throwable,
@@ -573,20 +409,7 @@ public interface Pipeable<TYPE> {
         return result;
     }
     
-    /**
-     * Pipe with 7 operators and a catcher that might throw a checked exception.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param operator3   the 3rd operator.
-     * @param operator4   the 4th operator.
-     * @param operator5   the 5th operator.
-     * @param operator6   the 6th operator.
-     * @param operator7   the 7th operator.
-     * @param catcher     the catcher.
-     * @return            the result.
-     * @throws FINAL_THROWABLE if the catcher throw an exception.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     TYPE2,  THROWABLE2  extends Throwable,
                     TYPE3,  THROWABLE3  extends Throwable,
@@ -617,19 +440,7 @@ public interface Pipeable<TYPE> {
         }
     }
     
-    /**
-     * Pipe with 7 operators and a catcher that does not throw a checked exception.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param operator3   the 3rd operator.
-     * @param operator4   the 4th operator.
-     * @param operator5   the 5th operator.
-     * @param operator6   the 6th operator.
-     * @param operator7   the 7th operator.
-     * @param catcher     the catcher.
-     * @return            the result.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     TYPE2,  THROWABLE2  extends Throwable,
                     TYPE3,  THROWABLE3  extends Throwable,
@@ -659,19 +470,7 @@ public interface Pipeable<TYPE> {
         }
     }
     
-    /**
-     * Pipe with 8 operators.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param operator3   the 3rd operator.
-     * @param operator4   the 4th operator.
-     * @param operator5   the 5th operator.
-     * @param operator6   the 6th operator.
-     * @param operator7   the 7th operator.
-     * @param operator8   the 8th operator.
-     * @return            the result.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     TYPE2,  THROWABLE2  extends Throwable,
                     TYPE3,  THROWABLE3  extends Throwable,
@@ -700,21 +499,7 @@ public interface Pipeable<TYPE> {
         return result;
     }
     
-    /**
-     * Pipe with 8 operators and a catcher that might throw a checked exception.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param operator3   the 3rd operator.
-     * @param operator4   the 4th operator.
-     * @param operator5   the 5th operator.
-     * @param operator6   the 6th operator.
-     * @param operator7   the 7th operator.
-     * @param operator8   the 8th operator.
-     * @param catcher     the catcher.
-     * @return            the result.
-     * @throws FINAL_THROWABLE if the catcher throw an exception.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     TYPE2,  THROWABLE2  extends Throwable,
                     TYPE3,  THROWABLE3  extends Throwable,
@@ -748,20 +533,7 @@ public interface Pipeable<TYPE> {
         }
     }
     
-    /**
-     * Pipe with 8 operators and a catcher that does not throw a checked exception.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param operator3   the 3rd operator.
-     * @param operator4   the 4th operator.
-     * @param operator5   the 5th operator.
-     * @param operator6   the 6th operator.
-     * @param operator7   the 7th operator.
-     * @param operator8   the 8th operator.
-     * @param catcher     the catcher.
-     * @return            the result.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     TYPE2,  THROWABLE2  extends Throwable,
                     TYPE3,  THROWABLE3  extends Throwable,
@@ -794,20 +566,7 @@ public interface Pipeable<TYPE> {
         }
     }
     
-    /**
-     * Pipe with 9 operators.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param operator3   the 3rd operator.
-     * @param operator4   the 4th operator.
-     * @param operator5   the 5th operator.
-     * @param operator6   the 6th operator.
-     * @param operator7   the 7th operator.
-     * @param operator8   the 8th operator.
-     * @param operator9   the 9th operator.
-     * @return            the result.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     TYPE2,  THROWABLE2  extends Throwable,
                     TYPE3,  THROWABLE3  extends Throwable,
@@ -838,22 +597,7 @@ public interface Pipeable<TYPE> {
         return result;
     }
     
-    /**
-     * Pipe with 9 operators and a catcher that might throw a checked exception.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param operator3   the 3rd operator.
-     * @param operator4   the 4th operator.
-     * @param operator5   the 5th operator.
-     * @param operator6   the 6th operator.
-     * @param operator7   the 7th operator.
-     * @param operator8   the 8th operator.
-     * @param operator9   the 9th operator.
-     * @param catcher     the catcher.
-     * @return            the result.
-     * @throws FINAL_THROWABLE if the catcher throw an exception.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     TYPE2,  THROWABLE2  extends Throwable,
                     TYPE3,  THROWABLE3  extends Throwable,
@@ -890,21 +634,7 @@ public interface Pipeable<TYPE> {
         }
     }
     
-    /**
-     * Pipe with 9 operators and a catcher that does not throw a checked exception.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param operator3   the 3rd operator.
-     * @param operator4   the 4th operator.
-     * @param operator5   the 5th operator.
-     * @param operator6   the 6th operator.
-     * @param operator7   the 7th operator.
-     * @param operator8   the 8th operator.
-     * @param operator9   the 9th operator.
-     * @param catcher     the catcher.
-     * @return            the result.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     TYPE2,  THROWABLE2  extends Throwable,
                     TYPE3,  THROWABLE3  extends Throwable,
@@ -940,21 +670,7 @@ public interface Pipeable<TYPE> {
         }
     }
     
-    /**
-     * Pipe with 10 operators.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param operator3   the 3rd operator.
-     * @param operator4   the 4th operator.
-     * @param operator5   the 5th operator.
-     * @param operator6   the 6th operator.
-     * @param operator7   the 7th operator.
-     * @param operator8   the 8th operator.
-     * @param operator9   the 9th operator.
-     * @param operator10  the 10th operator.
-     * @return            the result.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     TYPE2,  THROWABLE2  extends Throwable,
                     TYPE3,  THROWABLE3  extends Throwable,
@@ -988,23 +704,7 @@ public interface Pipeable<TYPE> {
         return result;
     }
     
-    /**
-     * Pipe with 10 operators and a catcher that might throw a checked exception.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param operator3   the 3rd operator.
-     * @param operator4   the 4th operator.
-     * @param operator5   the 5th operator.
-     * @param operator6   the 6th operator.
-     * @param operator7   the 7th operator.
-     * @param operator8   the 8th operator.
-     * @param operator9   the 9th operator.
-     * @param operator10  the 10th operator.
-     * @param catcher     the catcher.
-     * @return            the result.
-     * @throws FINAL_THROWABLE if the catcher throw an exception.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     TYPE2,  THROWABLE2  extends Throwable,
                     TYPE3,  THROWABLE3  extends Throwable,
@@ -1044,22 +744,7 @@ public interface Pipeable<TYPE> {
         }
     }
     
-    /**
-     * Pipe with 10 operators and a catcher that does not throw a checked exception.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param operator3   the 3rd operator.
-     * @param operator4   the 4th operator.
-     * @param operator5   the 5th operator.
-     * @param operator6   the 6th operator.
-     * @param operator7   the 7th operator.
-     * @param operator8   the 8th operator.
-     * @param operator9   the 9th operator.
-     * @param operator10  the 10th operator.
-     * @param catcher     the catcher.
-     * @return            the result.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     TYPE2,  THROWABLE2  extends Throwable,
                     TYPE3,  THROWABLE3  extends Throwable,
@@ -1098,22 +783,7 @@ public interface Pipeable<TYPE> {
         }
     }
     
-    /**
-     * Pipe with 11 operators.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param operator3   the 3rd operator.
-     * @param operator4   the 4th operator.
-     * @param operator5   the 5th operator.
-     * @param operator6   the 6th operator.
-     * @param operator7   the 7th operator.
-     * @param operator8   the 8th operator.
-     * @param operator9   the 9th operator.
-     * @param operator10  the 10th operator.
-     * @param operator11  the 11th operator.
-     * @return            the result.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     TYPE2,  THROWABLE2  extends Throwable,
                     TYPE3,  THROWABLE3  extends Throwable,
@@ -1150,24 +820,7 @@ public interface Pipeable<TYPE> {
         return result;
     }
     
-    /**
-     * Pipe with 11 operators and a catcher that might throw a checked exception.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param operator3   the 3rd operator.
-     * @param operator4   the 4th operator.
-     * @param operator5   the 5th operator.
-     * @param operator6   the 6th operator.
-     * @param operator7   the 7th operator.
-     * @param operator8   the 8th operator.
-     * @param operator9   the 9th operator.
-     * @param operator10  the 10th operator.
-     * @param operator11  the 11th operator.
-     * @param catcher     the catcher.
-     * @return            the result.
-     * @throws FINAL_THROWABLE if the catcher throw an exception.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     TYPE2,  THROWABLE2  extends Throwable,
                     TYPE3,  THROWABLE3  extends Throwable,
@@ -1210,23 +863,7 @@ public interface Pipeable<TYPE> {
         }
     }
     
-    /**
-     * Pipe with 11 operators and a catcher that does not throw a checked exception.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param operator3   the 3rd operator.
-     * @param operator4   the 4th operator.
-     * @param operator5   the 5th operator.
-     * @param operator6   the 6th operator.
-     * @param operator7   the 7th operator.
-     * @param operator8   the 8th operator.
-     * @param operator9   the 9th operator.
-     * @param operator10  the 10th operator.
-     * @param operator11  the 11th operator.
-     * @param catcher     the catcher.
-     * @return            the result.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     TYPE2,  THROWABLE2  extends Throwable,
                     TYPE3,  THROWABLE3  extends Throwable,
@@ -1268,23 +905,7 @@ public interface Pipeable<TYPE> {
         }
     }
     
-    /**
-     * Pipe with 12 operators.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param operator3   the 3rd operator.
-     * @param operator4   the 4th operator.
-     * @param operator5   the 5th operator.
-     * @param operator6   the 6th operator.
-     * @param operator7   the 7th operator.
-     * @param operator8   the 8th operator.
-     * @param operator9   the 9th operator.
-     * @param operator10  the 10th operator.
-     * @param operator11  the 11th operator.
-     * @param operator12  the 12th operator.
-     * @return            the result.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     TYPE2,  THROWABLE2  extends Throwable,
                     TYPE3,  THROWABLE3  extends Throwable,
@@ -1324,25 +945,7 @@ public interface Pipeable<TYPE> {
         return result;
     }
     
-    /**
-     * Pipe with 12 operators and a catcher that might throw a checked exception.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param operator3   the 3rd operator.
-     * @param operator4   the 4th operator.
-     * @param operator5   the 5th operator.
-     * @param operator6   the 6th operator.
-     * @param operator7   the 7th operator.
-     * @param operator8   the 8th operator.
-     * @param operator9   the 9th operator.
-     * @param operator10  the 10th operator.
-     * @param operator11  the 11th operator.
-     * @param operator12  the 12th operator.
-     * @param catcher     the catcher.
-     * @return            the result.
-     * @throws FINAL_THROWABLE if the catcher throw an exception.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     TYPE2,  THROWABLE2  extends Throwable,
                     TYPE3,  THROWABLE3  extends Throwable,
@@ -1388,24 +991,7 @@ public interface Pipeable<TYPE> {
         }
     }
     
-    /**
-     * Pipe with 12 operators and a catcher that does not throw a checked exception.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param operator3   the 3rd operator.
-     * @param operator4   the 4th operator.
-     * @param operator5   the 5th operator.
-     * @param operator6   the 6th operator.
-     * @param operator7   the 7th operator.
-     * @param operator8   the 8th operator.
-     * @param operator9   the 9th operator.
-     * @param operator10  the 10th operator.
-     * @param operator11  the 11th operator.
-     * @param operator12  the 12th operator.
-     * @param catcher     the catcher.
-     * @return            the result.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     TYPE2,  THROWABLE2  extends Throwable,
                     TYPE3,  THROWABLE3  extends Throwable,
@@ -1450,24 +1036,7 @@ public interface Pipeable<TYPE> {
         }
     }
     
-    /**
-     * Pipe with 13 operators.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param operator3   the 3rd operator.
-     * @param operator4   the 4th operator.
-     * @param operator5   the 5th operator.
-     * @param operator6   the 6th operator.
-     * @param operator7   the 7th operator.
-     * @param operator8   the 8th operator.
-     * @param operator9   the 9th operator.
-     * @param operator10  the 10th operator.
-     * @param operator11  the 11th operator.
-     * @param operator12  the 12th operator.
-     * @param operator13  the 13th operator.
-     * @return            the result.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     TYPE2,  THROWABLE2  extends Throwable,
                     TYPE3,  THROWABLE3  extends Throwable,
@@ -1510,26 +1079,7 @@ public interface Pipeable<TYPE> {
         return result;
     }
     
-    /**
-     * Pipe with 13 operators and a catcher that might throw a checked exception.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param operator3   the 3rd operator.
-     * @param operator4   the 4th operator.
-     * @param operator5   the 5th operator.
-     * @param operator6   the 6th operator.
-     * @param operator7   the 7th operator.
-     * @param operator8   the 8th operator.
-     * @param operator9   the 9th operator.
-     * @param operator10  the 10th operator.
-     * @param operator11  the 11th operator.
-     * @param operator12  the 12th operator.
-     * @param operator13  the 13th operator.
-     * @param catcher     the catcher.
-     * @return            the result.
-     * @throws FINAL_THROWABLE if the catcher throw an exception.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     TYPE2,  THROWABLE2  extends Throwable,
                     TYPE3,  THROWABLE3  extends Throwable,
@@ -1578,25 +1128,7 @@ public interface Pipeable<TYPE> {
         }
     }
     
-    /**
-     * Pipe with 13 operators and a catcher that does not throw a checked exception.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param operator3   the 3rd operator.
-     * @param operator4   the 4th operator.
-     * @param operator5   the 5th operator.
-     * @param operator6   the 6th operator.
-     * @param operator7   the 7th operator.
-     * @param operator8   the 8th operator.
-     * @param operator9   the 9th operator.
-     * @param operator10  the 10th operator.
-     * @param operator11  the 11th operator.
-     * @param operator12  the 12th operator.
-     * @param operator13  the 13th operator.
-     * @param catcher     the catcher.
-     * @return            the result.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     TYPE2,  THROWABLE2  extends Throwable,
                     TYPE3,  THROWABLE3  extends Throwable,
@@ -1644,25 +1176,7 @@ public interface Pipeable<TYPE> {
         }
     }
     
-    /**
-     * Pipe with 14 operators.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param operator3   the 3rd operator.
-     * @param operator4   the 4th operator.
-     * @param operator5   the 5th operator.
-     * @param operator6   the 6th operator.
-     * @param operator7   the 7th operator.
-     * @param operator8   the 8th operator.
-     * @param operator9   the 9th operator.
-     * @param operator10  the 10th operator.
-     * @param operator11  the 11th operator.
-     * @param operator12  the 12th operator.
-     * @param operator13  the 13th operator.
-     * @param operator14  the 14th operator.
-     * @return            the result.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     TYPE2,  THROWABLE2  extends Throwable,
                     TYPE3,  THROWABLE3  extends Throwable,
@@ -1708,27 +1222,7 @@ public interface Pipeable<TYPE> {
         return result;
     }
     
-    /**
-     * Pipe with 14 operators and a catcher that might throw a checked exception.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param operator3   the 3rd operator.
-     * @param operator4   the 4th operator.
-     * @param operator5   the 5th operator.
-     * @param operator6   the 6th operator.
-     * @param operator7   the 7th operator.
-     * @param operator8   the 8th operator.
-     * @param operator9   the 9th operator.
-     * @param operator10  the 10th operator.
-     * @param operator11  the 11th operator.
-     * @param operator12  the 12th operator.
-     * @param operator13  the 13th operator.
-     * @param operator14  the 14th operator.
-     * @param catcher     the catcher.
-     * @return            the result.
-     * @throws FINAL_THROWABLE if the catcher throw an exception.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     TYPE2,  THROWABLE2  extends Throwable,
                     TYPE3,  THROWABLE3  extends Throwable,
@@ -1780,26 +1274,7 @@ public interface Pipeable<TYPE> {
         }
     }
     
-    /**
-     * Pipe with 14 operators and a catcher that does not throw a checked exception.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param operator3   the 3rd operator.
-     * @param operator4   the 4th operator.
-     * @param operator5   the 5th operator.
-     * @param operator6   the 6th operator.
-     * @param operator7   the 7th operator.
-     * @param operator8   the 8th operator.
-     * @param operator9   the 9th operator.
-     * @param operator10  the 10th operator.
-     * @param operator11  the 11th operator.
-     * @param operator12  the 12th operator.
-     * @param operator13  the 13th operator.
-     * @param operator14  the 14th operator.
-     * @param catcher     the catcher.
-     * @return            the result.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     TYPE2,  THROWABLE2  extends Throwable,
                     TYPE3,  THROWABLE3  extends Throwable,
@@ -1850,26 +1325,7 @@ public interface Pipeable<TYPE> {
         }
     }
     
-    /**
-     * Pipe with 15 operators.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param operator3   the 3rd operator.
-     * @param operator4   the 4th operator.
-     * @param operator5   the 5th operator.
-     * @param operator6   the 6th operator.
-     * @param operator7   the 7th operator.
-     * @param operator8   the 8th operator.
-     * @param operator9   the 9th operator.
-     * @param operator10  the 10th operator.
-     * @param operator11  the 11th operator.
-     * @param operator12  the 12th operator.
-     * @param operator13  the 13th operator.
-     * @param operator14  the 14th operator.
-     * @param operator15  the 15th operator.
-     * @return            the result.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     TYPE2,  THROWABLE2  extends Throwable,
                     TYPE3,  THROWABLE3  extends Throwable,
@@ -1918,28 +1374,7 @@ public interface Pipeable<TYPE> {
         return result;
     }
     
-    /**
-     * Pipe with 15 operators and a catcher that might throw a checked exception.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param operator3   the 3rd operator.
-     * @param operator4   the 4th operator.
-     * @param operator5   the 5th operator.
-     * @param operator6   the 6th operator.
-     * @param operator7   the 7th operator.
-     * @param operator8   the 8th operator.
-     * @param operator9   the 9th operator.
-     * @param operator10  the 10th operator.
-     * @param operator11  the 11th operator.
-     * @param operator12  the 12th operator.
-     * @param operator13  the 13th operator.
-     * @param operator14  the 14th operator.
-     * @param operator15  the 15th operator.
-     * @param catcher     the catcher.
-     * @return            the result.
-     * @throws FINAL_THROWABLE if the catcher throw an exception.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     TYPE2,  THROWABLE2  extends Throwable,
                     TYPE3,  THROWABLE3  extends Throwable,
@@ -1994,27 +1429,7 @@ public interface Pipeable<TYPE> {
         }
     }
     
-    /**
-     * Pipe with 15 operators and a catcher that does not throw a checked exception.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param operator3   the 3rd operator.
-     * @param operator4   the 4th operator.
-     * @param operator5   the 5th operator.
-     * @param operator6   the 6th operator.
-     * @param operator7   the 7th operator.
-     * @param operator8   the 8th operator.
-     * @param operator9   the 9th operator.
-     * @param operator10  the 10th operator.
-     * @param operator11  the 11th operator.
-     * @param operator12  the 12th operator.
-     * @param operator13  the 13th operator.
-     * @param operator14  the 14th operator.
-     * @param operator15  the 15th operator.
-     * @param catcher     the catcher.
-     * @return            the result.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     TYPE2,  THROWABLE2  extends Throwable,
                     TYPE3,  THROWABLE3  extends Throwable,
@@ -2068,27 +1483,7 @@ public interface Pipeable<TYPE> {
         }
     }
     
-    /**
-     * Pipe with 16 operators.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param operator3   the 3rd operator.
-     * @param operator4   the 4th operator.
-     * @param operator5   the 5th operator.
-     * @param operator6   the 6th operator.
-     * @param operator7   the 7th operator.
-     * @param operator8   the 8th operator.
-     * @param operator9   the 9th operator.
-     * @param operator10  the 10th operator.
-     * @param operator11  the 11th operator.
-     * @param operator12  the 12th operator.
-     * @param operator13  the 13th operator.
-     * @param operator14  the 14th operator.
-     * @param operator15  the 15th operator.
-     * @param operator16  the 16th operator.
-     * @return            the result.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     TYPE2,  THROWABLE2  extends Throwable,
                     TYPE3,  THROWABLE3  extends Throwable,
@@ -2141,29 +1536,7 @@ public interface Pipeable<TYPE> {
         return result;
     }
     
-    /**
-     * Pipe with 16 operators and a catcher that might throw a checked exception.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param operator3   the 3rd operator.
-     * @param operator4   the 4th operator.
-     * @param operator5   the 5th operator.
-     * @param operator6   the 6th operator.
-     * @param operator7   the 7th operator.
-     * @param operator8   the 8th operator.
-     * @param operator9   the 9th operator.
-     * @param operator10  the 10th operator.
-     * @param operator11  the 11th operator.
-     * @param operator12  the 12th operator.
-     * @param operator13  the 13th operator.
-     * @param operator14  the 14th operator.
-     * @param operator15  the 15th operator.
-     * @param operator16  the 16th operator.
-     * @param catcher     the catcher.
-     * @return            the result.
-     * @throws FINAL_THROWABLE if the catcher throw an exception.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     TYPE2,  THROWABLE2  extends Throwable,
                     TYPE3,  THROWABLE3  extends Throwable,
@@ -2221,28 +1594,7 @@ public interface Pipeable<TYPE> {
         }
     }
     
-    /**
-     * Pipe with 16 operators and a catcher that does not throw a checked exception.
-     * 
-     * @param operator1   the 1st operator.
-     * @param operator2   the 2nd operator.
-     * @param operator3   the 3rd operator.
-     * @param operator4   the 4th operator.
-     * @param operator5   the 5th operator.
-     * @param operator6   the 6th operator.
-     * @param operator7   the 7th operator.
-     * @param operator8   the 8th operator.
-     * @param operator9   the 9th operator.
-     * @param operator10  the 10th operator.
-     * @param operator11  the 11th operator.
-     * @param operator12  the 12th operator.
-     * @param operator13  the 13th operator.
-     * @param operator14  the 14th operator.
-     * @param operator15  the 15th operator.
-     * @param operator16  the 16th operator.
-     * @param catcher     the catcher.
-     * @return            the result.
-     **/
+    @SuppressWarnings("javadoc")
     public default <TYPE1,  THROWABLE1  extends Throwable,
                     TYPE2,  THROWABLE2  extends Throwable,
                     TYPE3,  THROWABLE3  extends Throwable,

@@ -73,8 +73,12 @@ public class PipeLine<TYPE, RESULT, THROWABLE extends Throwable> implements Oper
     /**
      * Create a builder.
      * 
-     * @param firstOperator
+     * @param firstOperator  the first operator.
      * @return the PipeLine builder.
+     * 
+     * @param <TYPE>      the type of data that this pipeline will process.
+     * @param <RESULT>    the type of the pipeline result.
+     * @param <THROWABLE> an exception thrown if there is a problem.
      */
     public static <TYPE, RESULT, THROWABLE extends Throwable> Builder<TYPE, RESULT, RuntimeException> startingWith(Operator<TYPE, RESULT, THROWABLE> firstOperator) {
         return new Builder<>(firstOperator);
@@ -101,7 +105,10 @@ public class PipeLine<TYPE, RESULT, THROWABLE extends Throwable> implements Oper
          * Add a new operation to the pipeline.
          * 
          * @param operator  the operation.
-         * @return the builder with the additioned operation.
+         * @return the builder with the additional operation.
+         * 
+         * @param <TARGET>              the data type of the target result.
+         * @param <OPERATOR_THROWABLE>  the exception type of the operator.
          */
         @SuppressWarnings("unchecked")
         public <TARGET, OPERATOR_THROWABLE extends Throwable> Builder<TYPE, TARGET, RuntimeException> next(Operator<RESULT, TARGET, OPERATOR_THROWABLE> operator) {

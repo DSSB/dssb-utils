@@ -40,6 +40,8 @@ public class StreamOperations {
      * Map element in the stream to another value.
      * 
      * @return  the map operator.
+     * 
+     * @param <T> the data type of the input.
      */
     public static <T> Operator<T, Stream<T>, RuntimeException> stream() {
         return Operator.of(Stream::of);
@@ -50,6 +52,9 @@ public class StreamOperations {
      * 
      * @param mapper  the mapper.
      * @return  the map operator.
+     * 
+     * @param <T> the data type of the data in the input stream.
+     * @param <R> the data type of the data in the output stream.
      */
     public static <T, R> Operator<Stream<T>, Stream<R>, RuntimeException> map(Function<T, R> mapper) {
         return Operator.of(stream -> {
@@ -62,6 +67,10 @@ public class StreamOperations {
      * 
      * @param mapper  the mapper.
      * @return  the faltMap operator.
+     * 
+     * @param <T> the data type of the data in the input stream.
+     * @param <R> the data type of the data in the output stream.
+     * @param <C> the type of the intermediate collection.
      */
     public static <T, R, C extends Collection<R>> Operator<Stream<T>, Stream<R>, RuntimeException> faltMap(Function<T, C> mapper) {
         return Operator.of(stream -> { 
@@ -73,7 +82,11 @@ public class StreamOperations {
      * Spread element in the stream to another value. (flatMap from List)
      * 
      * @param mapper  the mapper.
-     * @return  the spread operator.
+     * @return the spread operator.
+     * 
+     * @param <T> the data type of the data in the input stream.
+     * @param <R> the data type of the data in the output stream.
+     * @param <C> the type of the intermediate collection.
      */
     public static <T, R, C extends Collection<R>> Operator<List<T>, Stream<R>, RuntimeException> spread(Function<T, C> mapper) {
         return Operator.of(stream -> {
@@ -86,6 +99,8 @@ public class StreamOperations {
      * 
      * @param predicate  the check if an element should be included.
      * @return  the collect operator.
+     * 
+     * @param <T> the data type of the data in the stream.
      */
     public static <T> Operator<Stream<T>, Stream<T>, RuntimeException> filter(Predicate<T> predicate) {
         return Operator.of(stream -> {
@@ -98,6 +113,8 @@ public class StreamOperations {
      * 
      * @param consumer  the consumer of the element.
      * @return  the peek operator.
+     * 
+     * @param <T> the data type of the data in the stream.
      */
     public static <T> Operator<Stream<T>, Stream<T>, RuntimeException> peek(Consumer<T> consumer) {
         return Operator.of(stream -> {
@@ -110,6 +127,8 @@ public class StreamOperations {
      * 
      * @param predicate  the check if an element should be included.
      * @return  the anyMatch operator.
+     * 
+     * @param <T> the data type of the data in the stream.
      */
     public static <T> Operator<Stream<T>, Boolean, RuntimeException> anyMatch(Predicate<T> predicate) {
         return Operator.of(stream -> {
@@ -122,6 +141,8 @@ public class StreamOperations {
      * 
      * @param predicate  the check if an element should be included.
      * @return  the allMatch operator.
+     * 
+     * @param <T> the data type of the data in the stream.
      */
     public static <T> Operator<Stream<T>, Boolean, RuntimeException> allMatch(Predicate<T> predicate) {
         return Operator.of(stream -> {
@@ -134,6 +155,10 @@ public class StreamOperations {
      * 
      * @param collector  the collectors.
      * @return  the collect operator.
+     * 
+     * @param <T> the data type of the data in the input stream.
+     * @param <A> the type of the accumulator.
+     * @param <R> the data type of the data in the output stream.
      */
     public static<T, A, R> Operator<Stream<T>, R, RuntimeException> collect(Collector<? super T, A, R> collector) {
         return Operator.of(stream-> {
@@ -146,6 +171,8 @@ public class StreamOperations {
      * 
      * @param accumulator  function for combining two values.
      * @return  the reduce operator.
+     * 
+     * @param <T> the data type of the data in the stream.
      */
     public static <T> Operator<Stream<T>, T, RuntimeException> reduce(BinaryOperator<T> accumulator) {
         return Operator.of(stream-> {
@@ -157,6 +184,8 @@ public class StreamOperations {
      * Collect the stream to list.
      * 
      * @return  the reduce operator.
+     * 
+     * @param <T> the data type of the data in the stream.
      */
     public static <T> Operator<Stream<T>, List<T>, RuntimeException> collectToList() {
         return Operator.of(stream-> {

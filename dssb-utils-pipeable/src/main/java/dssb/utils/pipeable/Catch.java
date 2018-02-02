@@ -69,6 +69,9 @@ public class Catch<RESULT, THROWABLE extends Throwable> {
      * 
      * @param handler  the given handler.
      * @return  the newly create Catch.
+     * 
+     * @param <RESULT>     the return type of the pipe.
+     * @param <THROWABLE>  the exception type of the pipe.
      */
     public static <RESULT, THROWABLE extends Throwable> Catch<RESULT, THROWABLE> then(Failable.Function<FailableException, RESULT, THROWABLE> handler) {
         return new Catch<RESULT, THROWABLE>(handler);
@@ -79,6 +82,8 @@ public class Catch<RESULT, THROWABLE extends Throwable> {
      * 
      * @param orValue  the value to be returned.
      * @return  the Catch that does not throw a checked exception.
+     * 
+     * @param <RESULT>  the return type of the pipe.
      */
     public static <RESULT> CatchNoCheckException<RESULT> thenReturn(RESULT orValue) {
         return new CatchNoCheckException<>(e->orValue);
@@ -89,6 +94,8 @@ public class Catch<RESULT, THROWABLE extends Throwable> {
      * 
      * @param orSupplier  the supplier for the value to be returned.
      * @return  the Catch that does not throw a checked exception.
+     * 
+     * @param <RESULT>  the return type of the pipe.
      */
     public static <RESULT> CatchNoCheckException<RESULT> thenGet(Supplier<RESULT> orSupplier) {
         return new CatchNoCheckException<>(e->((orSupplier != null) ? orSupplier.get() : null));
@@ -99,6 +106,8 @@ public class Catch<RESULT, THROWABLE extends Throwable> {
      * 
      * @param orFunction  the function for the value to be returned given the failable exception.
      * @return  the Catch that does not throw a checked exception.
+     * 
+     * @param <RESULT>  the return type of the pipe.
      */
     public static <RESULT> CatchNoCheckException<RESULT> thenApply(Function<FailableException, RESULT> orFunction) {
         return new CatchNoCheckException<>(orFunction);
@@ -108,6 +117,9 @@ public class Catch<RESULT, THROWABLE extends Throwable> {
      * Handle the exception by throwing the cause of the exception.
      * 
      * @return  the catch.
+     * 
+     * @param <RESULT>     the return type of the pipe.
+     * @param <THROWABLE>  the exception thrown by operators in the pipe..
      */
     public static <RESULT, THROWABLE extends Throwable> Catch<RESULT, THROWABLE> thenThrow() {
         return new Catch<RESULT, THROWABLE>(exception -> {
@@ -121,9 +133,11 @@ public class Catch<RESULT, THROWABLE extends Throwable> {
      * Handle the exception by throwing the cause of the exception.
      * 
      * @return  the catch.
+     * 
+     * @param <RESULT>  the return type of the pipe.
      */
-    public static <RESULT, THROWABLE extends FailableException> Catch<RESULT, THROWABLE> thenThrowFailableException() {
-        return new Catch<RESULT, THROWABLE>(exception -> {
+    public static <RESULT> Catch<RESULT, FailableException> thenThrowFailableException() {
+        return new Catch<RESULT, FailableException>(exception -> {
             throw exception;
         });
     }
@@ -132,6 +146,8 @@ public class Catch<RESULT, THROWABLE extends Throwable> {
      * Handle the exception by ignoring it.
      * 
      * @return  the catch that ignore the exception.
+     * 
+     * @param <RESULT>  the return type of the pipe.
      */
     public static <RESULT> CatchNoCheckException<RESULT> thenIgnore() {
         return new CatchNoCheckException<RESULT>(null);
@@ -141,8 +157,10 @@ public class Catch<RESULT, THROWABLE extends Throwable> {
      * Handle the exception by printing the stacktrace. This method use Exception.printStackTrace().
      * 
      * @return the Catch.
+     * 
+     * @param <RESULT>  the return type of the pipe.
      */
-    public static <RESULT, THROWABLE extends Throwable> CatchNoCheckException<RESULT> thenPrintStackTrace() {
+    public static <RESULT> CatchNoCheckException<RESULT> thenPrintStackTrace() {
         return new CatchNoCheckException<RESULT>(e->{
             e.printStackTrace();
             return null;
@@ -155,8 +173,10 @@ public class Catch<RESULT, THROWABLE extends Throwable> {
      * @param ps the print stream to be printed to.
      * 
      * @return the Catch.
+     * 
+     * @param <RESULT>  the return type of the pipe.
      */
-    public static <RESULT, THROWABLE extends Throwable> CatchNoCheckException<RESULT> thenPrintStackTrace(PrintStream ps) {
+    public static <RESULT> CatchNoCheckException<RESULT> thenPrintStackTrace(PrintStream ps) {
         return new CatchNoCheckException<RESULT>(e->{
             e.printStackTrace(ps);
             return null;
@@ -169,8 +189,10 @@ public class Catch<RESULT, THROWABLE extends Throwable> {
      * @param pw the print writer to be printed to.
      * 
      * @return the Catch.
+     * 
+     * @param <RESULT>  the return type of the pipe.
      */
-    public static <RESULT, THROWABLE extends Throwable> CatchNoCheckException<RESULT> thenPrintStackTrace(PrintWriter pw) {
+    public static <RESULT> CatchNoCheckException<RESULT> thenPrintStackTrace(PrintWriter pw) {
         return new CatchNoCheckException<RESULT>(e->{
             e.printStackTrace(pw);
             return null;
@@ -182,8 +204,10 @@ public class Catch<RESULT, THROWABLE extends Throwable> {
      * 
      * @param stackTraceElementsHolder  the holder of the stacktrack.
      * @return the Catch.
+     * 
+     * @param <RESULT>  the return type of the pipe.
      */
-    public static <RESULT, THROWABLE extends Throwable> CatchNoCheckException<RESULT> thenSetStackTrace(AtomicReference<StackTraceElement[]> stackTraceElementsHolder) {
+    public static <RESULT> CatchNoCheckException<RESULT> thenSetStackTrace(AtomicReference<StackTraceElement[]> stackTraceElementsHolder) {
         return new CatchNoCheckException<RESULT>(e->{
             if (stackTraceElementsHolder != null)
                 stackTraceElementsHolder.set(e.getStackTrace());
@@ -197,8 +221,10 @@ public class Catch<RESULT, THROWABLE extends Throwable> {
      * 
      * @param stackTraceHolder  the holder of the stacktrack as a printout by printStackTrace().
      * @return the Catch.
+     * 
+     * @param <RESULT>  the return type of the pipe.
      */
-    public static <RESULT, THROWABLE extends Throwable> CatchNoCheckException<RESULT> thenSetStackTraceString(AtomicReference<String> stackTraceHolder) {
+    public static <RESULT> CatchNoCheckException<RESULT> thenSetStackTraceString(AtomicReference<String> stackTraceHolder) {
         return new CatchNoCheckException<RESULT>(e->{
             if (stackTraceHolder != null) {
                 try (val baos = new ByteArrayOutputStream();

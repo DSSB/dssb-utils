@@ -18,7 +18,7 @@ package dssb.utils.pipeable;
 import dssb.failable.FailableException;
 
 /**
- * Catch handles exception thrown as a pipe is processing but will never throw a checked exceotion..
+ * Catch handles exception thrown as a pipe is processing but will never throw a checked exception..
  * 
  * @param <RESULT>    the type of the operation result.
  * 
@@ -33,12 +33,20 @@ public class CatchNoCheckException<RESULT> extends Catch<RESULT, RuntimeExceptio
      * Constructs a CatchNoCheckException.
      * 
      * @param orFunction  the handler function.
+     * 
+     * @param <R>          the return type of the given function.
+     * @param <THROWABLE>  the exception type of the given function.
      */
     public <R extends RESULT, THROWABLE extends Throwable> CatchNoCheckException(java.util.function.Function<FailableException, R> orFunction) {
         super(null);
         this.orFunction = orFunction;
     }
-    
+
+    /**
+     * Handle the exception.
+     * 
+     * @param exception  the exception.
+     */
     @SuppressWarnings("unchecked")
     public RESULT handle(FailableException exception) {
         if (this.orFunction == null)

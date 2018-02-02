@@ -40,6 +40,10 @@ public class Operators {
      * 
      * @param function  the function.
      * @return  the operator for the given function.
+     * 
+     * @param <T>          the data type of the object in the pipe.
+     * @param <R>          the data type of the return value.
+     * @param <THROWABLE>  the exception type the function might throw.
      */
     public static <T, R, THROWABLE extends Throwable>
                 Operator<T, R, THROWABLE> to(Function<T, R, THROWABLE> function) {
@@ -50,6 +54,8 @@ public class Operators {
      * This operator simply convert the value to string.
      * 
      * @return  the operator to convert oject to string.
+     * 
+     * @param <T>  the data type of the object in the pipe.
      */
     public static <T> Operator<T, String, RuntimeException> toStr() {
         return Operator.of(Object::toString);
@@ -60,8 +66,10 @@ public class Operators {
      * 
      * @param defaultValue  the default value to be returned.
      * @return  the OR operator.
+     * 
+     * @param <T>  the data type of the object in the pipe.
      */
-    public static <T, THROWABLE extends Throwable> NullSafeOperator<T, T, THROWABLE> or(T defaultValue) {
+    public static <T> NullSafeOperator<T, T, RuntimeException> or(T defaultValue) {
         return NullSafeOperator.of(t->{ 
             return UNulls.or(t, defaultValue);
         });
@@ -72,8 +80,10 @@ public class Operators {
      * 
      * @param defaultSupplier  the default value to be returned.
      * @return  the OR operator.
+     * 
+     * @param <T>  the data type of the object in the pipe.
      */
-    public static <T, THROWABLE extends Throwable> NullSafeOperator<T, T, THROWABLE> orGet(Supplier<T> defaultSupplier) {
+    public static <T> NullSafeOperator<T, T, RuntimeException> orGet(Supplier<T> defaultSupplier) {
         return NullSafeOperator.of(t->{
             return UNulls.orGet(t, defaultSupplier);
         });
@@ -84,8 +94,10 @@ public class Operators {
      * 
      * @param defaultValue  the default value to be returned.
      * @return  the OR operator.
+     * 
+     * @param <T>  the data type of the object in the pipe.
      */
-    public static <T, THROWABLE extends Throwable> NullSafeOperator<T, T, THROWABLE> otherwise(T defaultValue) {
+    public static <T> NullSafeOperator<T, T, RuntimeException> otherwise(T defaultValue) {
         return NullSafeOperator.of(t->{
             return UNulls.or(t, defaultValue);
         });
@@ -96,8 +108,10 @@ public class Operators {
      * 
      * @param defaultSupplier  the default value to be returned.
      * @return  the OR operator.
+     * 
+     * @param <T>  the data type of the object in the pipe.
      */
-    public static <T, THROWABLE extends Throwable> NullSafeOperator<T, T, THROWABLE> otherwiseGet(Supplier<T> defaultSupplier) {
+    public static <T> NullSafeOperator<T, T, RuntimeException> otherwiseGet(Supplier<T> defaultSupplier) {
         return NullSafeOperator.of(t->{
             return UNulls.orGet(t, defaultSupplier);
         });
