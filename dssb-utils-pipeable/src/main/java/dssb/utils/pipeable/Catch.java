@@ -120,22 +120,6 @@ public class Catch<RESULT, THROWABLE extends Throwable> {
      * 
      * @return  the catch.
      * 
-     * @param <RESULT>     the return type of the pipe.
-     * @param <THROWABLE>  the exception thrown by operators in the pipe..
-     */
-    public static <RESULT, THROWABLE extends Throwable> Catch<RESULT, THROWABLE> thenThrow() {
-        return new Catch<RESULT, THROWABLE>(exception -> {
-            @SuppressWarnings("unchecked")
-            val cause = (THROWABLE)exception.getCause();
-            throw cause;
-        });
-    }
-    
-    /**
-     * Handle the exception by throwing the cause of the exception.
-     * 
-     * @return  the catch.
-     * 
      * @param <RESULT>  the return type of the pipe.
      */
     public static <RESULT> Catch<RESULT, FailableException> thenThrowFailableException() {

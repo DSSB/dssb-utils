@@ -18,13 +18,11 @@ package dssb.utils.pipeable;
 import static dssb.utils.pipeable.operators.Operators.or;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 
 import org.junit.Test;
 
-import dssb.failable.FailableException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.val;
@@ -80,24 +78,6 @@ public class PipeLineTest {
     public void testCatchIgnore() {
         val pipeline = PipeLine.startingWith(Person::burn).buildWith(Catch.thenIgnore());
         assertNull(new Person(null).pipe(pipeline));
-        assertNull(pipeline.apply(new Person(null)));
-    }
-    
-    // TODO - Try to clear out the discrepancy.
-    
-    @Test
-    public void testCatchThrow_useAsOpeartor_throwFailableException() {
-        try{
-            val pipeline = PipeLine.startingWith(Person::burn).buildWith(Catch.thenThrow());
-            assertNull(new Person(null).pipe(pipeline));
-        } catch (FailableException e) {
-            assertTrue(e.getCause() instanceof IOException);
-        }
-    }
-    
-    @Test(expected=IOException.class)
-    public void testCatchThrow_useAsFunction_throwTheActualException() {
-        val pipeline = PipeLine.startingWith(Person::burn).buildWith(Catch.thenThrow());
         assertNull(pipeline.apply(new Person(null)));
     }
     

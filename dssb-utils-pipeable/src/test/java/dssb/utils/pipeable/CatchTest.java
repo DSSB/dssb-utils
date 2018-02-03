@@ -73,12 +73,6 @@ public class CatchTest {
         assertEquals("java.io.IOException: burned", result);
     }
     
-    @Test(expected=IOException.class)
-    public void testCatchThenThrow() {
-        val person = new Person(null);
-        person.pipe(Person::burn, Catch.thenThrow());
-    }
-    
     @Test
     public void testCatchThenIgnore() {
         val person = new Person(null);
