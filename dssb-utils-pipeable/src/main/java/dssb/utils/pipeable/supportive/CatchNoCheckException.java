@@ -13,9 +13,10 @@
 //
 //  You may elect to redistribute this code under either of these licenses.
 //  ========================================================================
-package dssb.utils.pipeable;
+package dssb.utils.pipeable.supportive;
 
 import dssb.failable.FailableException;
+import dssb.utils.pipeable.Catch;
 
 /**
  * Catch handles exception thrown as a pipe is processing but will never throw a checked exception..

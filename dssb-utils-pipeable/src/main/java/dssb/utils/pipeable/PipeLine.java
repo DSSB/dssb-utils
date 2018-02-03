@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dssb.failable.FailableException;
+import dssb.utils.pipeable.supportive.CatchNoCheckException;
 import lombok.val;
 
 // TODO -> Name and location of the operator.

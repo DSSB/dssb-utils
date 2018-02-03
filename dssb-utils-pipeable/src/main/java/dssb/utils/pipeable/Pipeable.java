@@ -16,6 +16,7 @@
 package dssb.utils.pipeable;
 
 import dssb.failable.FailableException;
+import dssb.utils.pipeable.supportive.CatchNoCheckException;
 import lombok.val;
 
 /**

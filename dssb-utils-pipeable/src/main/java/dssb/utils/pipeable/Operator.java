@@ -57,7 +57,7 @@ public interface Operator<TYPE, RESULT, THROWABLE extends Throwable> extends Fai
      * @return  the result of the operation.
      */
     public default RESULT operateToResult(Pipeable<TYPE> pipe) {
-        val rawData = pipe._data();
+        val rawData = (pipe != null) ? pipe._data() : null;
         if (!(this instanceof NullSafeOperator)
           && (rawData == null))
             return null;

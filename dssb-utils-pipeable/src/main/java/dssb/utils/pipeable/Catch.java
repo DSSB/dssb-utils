@@ -25,6 +25,8 @@ import java.util.function.Supplier;
 
 import dssb.failable.Failable;
 import dssb.failable.FailableException;
+import dssb.utils.pipeable.supportive.CatchAndThen;
+import dssb.utils.pipeable.supportive.CatchNoCheckException;
 import lombok.val;
 
 /**
@@ -160,8 +162,8 @@ public class Catch<RESULT, THROWABLE extends Throwable> {
      * 
      * @param <RESULT>  the return type of the pipe.
      */
-    public static <RESULT> CatchNoCheckException<RESULT> thenPrintStackTrace() {
-        return new CatchNoCheckException<RESULT>(e->{
+    public static <RESULT> CatchAndThen<RESULT> thenPrint() {
+        return new CatchAndThen<RESULT>(e->{
             e.printStackTrace();
             return null;
         });
@@ -176,8 +178,8 @@ public class Catch<RESULT, THROWABLE extends Throwable> {
      * 
      * @param <RESULT>  the return type of the pipe.
      */
-    public static <RESULT> CatchNoCheckException<RESULT> thenPrintStackTrace(PrintStream ps) {
-        return new CatchNoCheckException<RESULT>(e->{
+    public static <RESULT> CatchAndThen<RESULT> thenPrintTo(PrintStream ps) {
+        return new CatchAndThen<RESULT>(e->{
             e.printStackTrace(ps);
             return null;
         });
@@ -192,8 +194,8 @@ public class Catch<RESULT, THROWABLE extends Throwable> {
      * 
      * @param <RESULT>  the return type of the pipe.
      */
-    public static <RESULT> CatchNoCheckException<RESULT> thenPrintStackTrace(PrintWriter pw) {
-        return new CatchNoCheckException<RESULT>(e->{
+    public static <RESULT> CatchAndThen<RESULT> thenPrintTo(PrintWriter pw) {
+        return new CatchAndThen<RESULT>(e->{
             e.printStackTrace(pw);
             return null;
         });
@@ -207,8 +209,8 @@ public class Catch<RESULT, THROWABLE extends Throwable> {
      * 
      * @param <RESULT>  the return type of the pipe.
      */
-    public static <RESULT> CatchNoCheckException<RESULT> thenSetStackTrace(AtomicReference<StackTraceElement[]> stackTraceElementsHolder) {
-        return new CatchNoCheckException<RESULT>(e->{
+    public static <RESULT> CatchAndThen<RESULT> thenSet(AtomicReference<StackTraceElement[]> stackTraceElementsHolder) {
+        return new CatchAndThen<RESULT>(e->{
             if (stackTraceElementsHolder != null)
                 stackTraceElementsHolder.set(e.getStackTrace());
             
@@ -224,8 +226,8 @@ public class Catch<RESULT, THROWABLE extends Throwable> {
      * 
      * @param <RESULT>  the return type of the pipe.
      */
-    public static <RESULT> CatchNoCheckException<RESULT> thenSetStackTraceString(AtomicReference<String> stackTraceHolder) {
-        return new CatchNoCheckException<RESULT>(e->{
+    public static <RESULT> CatchAndThen<RESULT> thenPrintTo(AtomicReference<String> stackTraceHolder) {
+        return new CatchAndThen<RESULT>(e->{
             if (stackTraceHolder != null) {
                 try (val baos = new ByteArrayOutputStream();
                      val ps   = new PrintStream(baos)) {

@@ -15,6 +15,7 @@
 //  ========================================================================
 package dssb.utils.pipeable;
 
+import static dssb.utils.pipeable.operators.Operators.or;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -72,6 +73,12 @@ public class PipeableTest {
     public void testNull() {
         val person = new Person(null);
         assertNull(person.pipe(Person::name, String::length));
+    }
+    
+    @Test
+    public void testOr() {
+        val person = new Person(null);
+        assertEquals(-1, person.pipe(Person::name, String::length, or(-1)).intValue());
     }
     
     @Test

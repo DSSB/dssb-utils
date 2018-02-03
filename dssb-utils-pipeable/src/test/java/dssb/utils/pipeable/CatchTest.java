@@ -16,8 +16,13 @@
 package dssb.utils.pipeable;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
+import java.util.concurrent.atomic.AtomicReference;
 
 import org.junit.Test;
 
@@ -69,7 +74,7 @@ public class CatchTest {
     }
     
     @Test(expected=IOException.class)
-    public void testCatchThenThrow() throws Throwable {
+    public void testCatchThenThrow() {
         val person = new Person(null);
         person.pipe(Person::burn, Catch.thenThrow());
     }
@@ -81,9 +86,33 @@ public class CatchTest {
     }
     
     @Test
-    public void testCatchThenPrintStackTrace() {
+    public void testCatchThenPrintStackTrace() throws IOException {
+        val oldPs = System.err;
+        try (val baos = new ByteArrayOutputStream();
+             val ps   = new PrintStream(baos)) {
+            System.setErr(ps);
+            val person = new Person(null);
+            person.pipe(Person::burn, Catch.thenPrint());
+            assertTrue(baos.toByteArray().length != 0);
+        } finally {
+            System.setErr(oldPs);
+        }
+    }
+    
+    @Test
+    public void testCatchThenPrintTo() {
+        val strRef = new AtomicReference<String>(null);
         val person = new Person(null);
-        person.pipe(Person::burn, Catch.thenPrintStackTrace());
+        person.pipe(Person::burn, Catch.thenPrintTo(strRef));
+        assertNotNull(strRef.get());
+    }
+    
+    @Test
+    public void testCatchThenPrintToAndReturn() {
+        val strRef = new AtomicReference<String>(null);
+        val person = new Person(null);
+        assertEquals("exploded", person.pipe(Person::burn, Catch.thenPrintTo(strRef).andReturn("exploded")));
+        assertNotNull(strRef.get());
     }
     
 }
