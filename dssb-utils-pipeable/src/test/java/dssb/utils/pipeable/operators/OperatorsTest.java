@@ -42,4 +42,11 @@ public class OperatorsTest {
         assertEquals("Hi", str.pipe(map::get, otherwise("Hi")));
     }
     
+    @Test
+    public void testOr_andMore() {
+        val map = new HashMap<String,String>();
+        val str = (Pipeable<String>)()->"Hello";
+        assertEquals(2, str.pipe(map::get, otherwise("Hi"), String::length).intValue());
+    }
+    
 }
