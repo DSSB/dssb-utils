@@ -1,8 +1,0 @@
-version='2.0.0'
-
-dependencies {
-    compileOnly 'org.projectlombok:lombok:1.16.16'
-    
-    testCompile     'junit:junit:4.12'
-    testCompileOnly 'org.projectlombok:lombok:1.16.16'
-}

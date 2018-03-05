@@ -47,26 +47,6 @@ public interface Operator<TYPE, RESULT, THROWABLE extends Throwable> extends Fai
     public RESULT apply(TYPE data) throws THROWABLE;
     
     /**
-     * This method will be executed if this operation is the last in the pipe;
-     *   thus, creating the final result.
-     * 
-     * This method has a default implementation that correctly handle null value.
-     * So if this method is to be overwritten, the new implementation should handle that too.
-     * 
-     * @param pipe  the pipe to operate on.
-     * @return  the result of the operation.
-     */
-    public default RESULT operateToResult(Pipeable<TYPE> pipe) {
-        val rawData = (pipe != null) ? pipe._data() : null;
-        if (!(this instanceof NullSafeOperator)
-          && (rawData == null))
-            return null;
-        
-        val rawResult = this.gracefully().apply(rawData);
-        return rawResult;
-    }
-    
-    /**
      * This method will be executed if this operation is not the last in the pipe;
      *   thus, creating another pipe value to be passed on to the next operator.
      * 

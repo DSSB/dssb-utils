@@ -15,6 +15,8 @@
 //  ========================================================================
 package dssb.utils.pipeable;
 
+import static dssb.utils.pipeable.PipeHelper.operateToResult;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,7 +61,7 @@ public class PipeLine<TYPE, RESULT, THROWABLE extends Throwable> implements Oper
                 pipe = operator.operateToPipe(Pipe.of(pipe));
             }
             val lastOperator = operators.get(operators.size() - 1);
-            val result = lastOperator.operateToResult(Pipe.of(pipe));
+            val result = operateToResult(lastOperator, Pipe.of(pipe));
             return (RESULT)result;
         } catch (FailableException e) {
             if (catchHandler == null)
