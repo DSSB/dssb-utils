@@ -53,7 +53,7 @@ public class Operators {
     /**
      * This operator simply convert the value to string.
      * 
-     * @return  the operator to convert oject to string.
+     * @return  the operator to convert object to string.
      * 
      * @param <T>  the data type of the object in the pipe.
      */

@@ -58,7 +58,7 @@ public class PipeLine<TYPE, RESULT, THROWABLE extends Throwable> implements Oper
             Object pipe = value;
             for (int o = 0; o < operators.size() - 1; o++) {
                 val operator = operators.get(o);
-                pipe = operator.operateToPipe(Pipe.of(pipe));
+                pipe = PipeHelper.resultToPipe(operateToResult(operator, Pipe.of(pipe)));
             }
             val lastOperator = operators.get(operators.size() - 1);
             val result = operateToResult(lastOperator, Pipe.of(pipe));

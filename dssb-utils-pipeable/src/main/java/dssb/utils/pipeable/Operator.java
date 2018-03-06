@@ -18,7 +18,6 @@ package dssb.utils.pipeable;
 
 import dssb.failable.Failable;
 import dssb.failable.Failable.Function;
-import lombok.val;
 
 /**
  * Classes implementing this interface can operate on the wrapped data of a compatible pipeable.
@@ -45,29 +44,6 @@ public interface Operator<TYPE, RESULT, THROWABLE extends Throwable> extends Fai
      * @throws THROWABLE  the problem that might happen.
      **/
     public RESULT apply(TYPE data) throws THROWABLE;
-    
-    /**
-     * This method will be executed if this operation is not the last in the pipe;
-     *   thus, creating another pipe value to be passed on to the next operator.
-     * 
-     * This method has a default implementation that correctly handle null value.
-     * So if this method is to be overwritten, the new implementation should handle that too.
-     * 
-     * @param pipe  the pipe to operate on.
-     * @return  the result of the operation.
-     */
-    @SuppressWarnings("unchecked")
-    public default Pipeable<RESULT> operateToPipe(Pipeable<TYPE> pipe) {
-        val rawData = pipe._data();
-        if (!(this instanceof NullSafeOperator)
-          && (rawData == null))
-            return null;
-        
-        val rawResult = this.gracefully().apply(rawData);
-        return (rawResult instanceof Pipeable)
-                ? (Pipeable<RESULT>)rawResult
-                : ()->rawResult;
-    }
     
     /**
      * Convert a failable function to an operator.

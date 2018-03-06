@@ -46,4 +46,25 @@ public class PipeHelper {
         return rawResult;
     }
     
+    /**
+     * This method will be executed if this operation is not the last in the pipe;
+     *   thus, creating another pipe value to be passed on to the next operator.
+     * 
+     * This method has a default implementation that correctly handle null value.
+     * So if this method is to be overwritten, the new implementation should handle that too.
+     * 
+     * @param <OTYPE>      the input type of the operator.
+     * @param <ORESULT>    the result type of the operator.
+     * @param <OTHROWABLE> the exception type of the operator.
+     * @param rawResult    the result to be process to pipe.
+     * @return             the pipe result of the operation.
+     */
+    @SuppressWarnings("unchecked")
+    public static <OTYPE, ORESULT, OTHROWABLE extends Throwable> Pipeable<ORESULT> resultToPipe(
+            ORESULT rawResult) {
+        return (rawResult instanceof Pipeable)
+                ? (Pipeable<ORESULT>)rawResult
+                : ()->rawResult;
+    }
+    
 }
