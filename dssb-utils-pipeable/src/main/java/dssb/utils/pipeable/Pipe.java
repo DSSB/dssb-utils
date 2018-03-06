@@ -16,9 +16,10 @@
 package dssb.utils.pipeable;
 
 import static java.util.Arrays.stream;
+import static java.util.stream.Stream.empty;
+import static java.util.stream.StreamSupport.stream;
 
 import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 /**
  * This utility class contains convenient functions for Pipeable.
@@ -56,8 +57,8 @@ public interface Pipe {
      */
     public static <TYPE> Pipeable<Stream<TYPE>> streamOf(Iterable<TYPE> iterable) {
         return Pipe.of((iterable == null) 
-                        ? Stream.empty()
-                        : StreamSupport.stream(iterable.spliterator(), false));
+                        ? empty()
+                        : stream(iterable.spliterator(), false));
     }
     
     /**

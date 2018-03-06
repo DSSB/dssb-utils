@@ -58,7 +58,7 @@ public class Operators {
      * @param <T>  the data type of the object in the pipe.
      */
     public static <T> Operator<T, String, RuntimeException> toStr() {
-        return Operator.of(Object::toString);
+        return Object::toString;
     }
     
     /**
